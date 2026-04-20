@@ -22,7 +22,7 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--txt
 #hdr .logo span{opacity:.5;font-size:9px;margin-left:8px;letter-spacing:1px;text-transform:uppercase}
 #hdr .gf{margin-left:auto;font-size:9.5px;opacity:.65;text-align:right;line-height:1.45;display:none}
 #hdr .stamp{font-size:9px;opacity:.38;margin-left:10px;white-space:nowrap;line-height:1.5}
-#menu-btn{display:none;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;padding:4px 6px;margin-left:auto}
+#menu-btn{display:none;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;cursor:pointer;padding:6px 10px;border-radius:8px;margin-left:auto;line-height:1}
 
 /* ── APP ── */
 #app{flex:1;display:flex;overflow:hidden;position:relative}
@@ -142,33 +142,49 @@ svg#map{width:100%;height:100%;display:block}
 
 /* ── MOBILE ── */
 @media(max-width:768px){
-  :root{--hh:48px;--sb:260px;--pw:100vw}
-  #menu-btn{display:block}
+  :root{--hh:50px;--sb:75vw;--pw:100vw}
+  #menu-btn{display:flex;align-items:center;justify-content:center}
   #hdr .gf{display:none}
   #hdr .stamp{display:none}
-  #sb{position:fixed;top:0;left:0;height:100vh;transform:translateX(-100%);z-index:160}
+  #hdr .logo span{display:none}
+  #sb{position:fixed;top:0;left:0;height:100vh;transform:translateX(-100%);z-index:300;box-shadow:4px 0 24px rgba(0,0,0,.4)}
   #sb.open{transform:translateX(0)}
+  #sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:290}
   #sb-overlay.open{display:block}
+  #app{position:relative}
+  #cnt{width:100%}
   #mw.po{margin-right:0}
-  #panel{position:fixed;width:100vw;height:calc(100vh - var(--hh));top:var(--hh)}
-  .aw{padding:14px 14px}
-  .grid{grid-template-columns:1fr}
-  .feat{padding:14px 16px}
+  #panel{position:fixed;width:100vw;height:calc(100vh - var(--hh));top:var(--hh);z-index:200}
+  .aw{padding:14px 12px}
+  .grid{grid-template-columns:1fr;gap:12px}
+  .feat{padding:14px 15px;margin-bottom:14px}
   .feat h2{font-size:15px}
-  .rh{padding:14px 14px}
-  .rcards{grid-template-columns:1fr 1fr}
+  .feat p{font-size:11.5px}
+  .fmeta{flex-wrap:wrap;gap:6px;opacity:.65}
+  .frbtn{font-size:10px;padding:4px 10px}
+  .rh{padding:14px 12px}
+  .rcards{grid-template-columns:1fr 1fr;gap:10px}
+  .rcard{padding:13px}
   #leg{display:none}
-  #hint{font-size:10px;padding:5px 12px}
-  .fmeta{gap:6px}
-  #rftr{gap:6px}
-  .rplay{padding:6px 12px;font-size:11px}
-  #rbox{max-height:95vh;border-radius:10px}
+  #hint{font-size:10px;padding:5px 12px;bottom:10px}
+  #rftr{gap:6px;padding:10px 14px}
+  .rplay{padding:6px 11px;font-size:11px}
+  #rbox{max-height:96vh;border-radius:12px 12px 0 0;position:fixed;bottom:0;left:0;right:0;width:100%;max-width:100%}
+  #reader{align-items:flex-end;padding:0}
+  #rhdr{padding:12px 16px}
   #rhdr h2{font-size:14px}
+  #rbody{padding:14px 16px}
+  .rtab{padding:5px 11px;font-size:11px}
+  .cmeta{flex-wrap:wrap}
+  .rbtn{font-size:9.5px;padding:3px 8px}
+  .ah h1{font-size:19px}
+  .cbody h3{font-size:13px}
+  .ni{padding:10px 14px;font-size:13.5px}
 }
 @media(max-width:420px){
   .rcards{grid-template-columns:1fr}
   .feat h2{font-size:14px}
-  .cbody h3{font-size:12.5px}
+  :root{--sb:85vw}
 }
 </style>
 </head>
