@@ -1,0 +1,815 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pflegewerk – Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Source+Sans+3:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#f2ede4;--ctr:#1a3a5c;--txt:#1a2a3a;--mut:#7a8a9a;
+  --sb:240px;--hh:52px;--pw:360px;
+  --amb:#1a6fa8;--bw:#1a7b5e;--tp:#b5600d;--th:#7b2d8b;--ku:#8b6914;
+  --red:#c0392b;--ora:#e67e22;--grn:#1a7b5e
+}
+*{box-sizing:border-box}
+body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--txt);height:100vh;overflow:hidden;display:flex;flex-direction:column}
+
+/* ── HEADER ── */
+#hdr{background:var(--ctr);color:#fff;height:var(--hh);display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;box-shadow:0 2px 14px rgba(0,0,0,.28);z-index:200}
+#hdr .logo{font-family:'Playfair Display',serif;font-size:17px;letter-spacing:1.5px;white-space:nowrap}
+#hdr .logo span{opacity:.5;font-size:9px;margin-left:8px;letter-spacing:1px;text-transform:uppercase}
+#hdr .gf{margin-left:auto;font-size:9.5px;opacity:.65;text-align:right;line-height:1.45;display:none}
+#hdr .stamp{font-size:9px;opacity:.38;margin-left:10px;white-space:nowrap;line-height:1.5}
+#menu-btn{display:none;background:none;border:none;color:#fff;font-size:22px;cursor:pointer;padding:4px 6px;margin-left:auto}
+
+/* ── APP ── */
+#app{flex:1;display:flex;overflow:hidden;position:relative}
+
+/* ── SIDEBAR ── */
+#sb{width:var(--sb);background:#1e2d40;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;z-index:150;transition:transform .25s ease}
+.sbs{padding:10px 0 3px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sbl{font-size:9px;text-transform:uppercase;letter-spacing:1.4px;color:rgba(255,255,255,.28);padding:0 14px 5px;font-weight:700}
+.ni{display:flex;align-items:center;gap:9px;padding:9px 14px;color:rgba(255,255,255,.62);cursor:pointer;font-size:13px;transition:all .13s;border-left:3px solid transparent;user-select:none}
+.ni:hover{background:rgba(255,255,255,.07);color:#fff}
+.ni.active{background:rgba(255,255,255,.11);color:#fff;border-left-color:var(--amb)}
+.ni .ico{font-size:15px;width:20px;text-align:center;flex-shrink:0}
+.ni .bdg{margin-left:auto;font-size:9px;font-weight:700;padding:1px 6px;border-radius:10px;min-width:18px;text-align:center;background:var(--red);color:#fff}
+.ni .bdg.b{background:var(--amb)}.ni .bdg.g{background:var(--grn)}.ni .bdg.o{background:var(--ora)}
+.ni.sub{padding-left:26px;font-size:12px}
+#sbf{margin-top:auto;padding:10px 14px;border-top:1px solid rgba(255,255,255,.07);font-size:10px;color:rgba(255,255,255,.25);line-height:1.6}
+#sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:140}
+
+/* ── CONTENT ── */
+#cnt{flex:1;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.pg{display:none;flex:1;overflow:hidden;flex-direction:column}
+.pg.active{display:flex}
+
+/* ── MINDMAP ── */
+#pg-mm{position:relative;overflow:hidden}
+#mw{flex:1;position:relative;overflow:hidden;transition:margin-right .3s}
+#mw.po{margin-right:var(--pw)}
+svg#map{width:100%;height:100%;display:block}
+#panel{position:absolute;top:0;right:0;width:var(--pw);height:100%;background:#fff;box-shadow:-6px 0 30px rgba(0,0,0,.12);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s;z-index:50}
+#panel.open{transform:translateX(0)}
+#ph{padding:13px 16px 11px;color:#fff;flex-shrink:0;position:relative}
+#ph .bl{font-size:10px;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:3px}
+#ph .in{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;line-height:1.3}
+#pc{position:absolute;top:11px;right:13px;background:rgba(255,255,255,.18);border:none;color:#fff;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:16px;line-height:26px;text-align:center}
+.xs{padding:7px 14px;border-bottom:1px solid #ede8e0;flex-shrink:0}
+.xs .sl{font-size:9px;text-transform:uppercase;letter-spacing:.7px;color:var(--mut);margin-bottom:2px}
+.xs .sn{font-size:11.5px;font-weight:700}
+.xs .st{font-size:11px;color:#444}
+#pb{flex:1;overflow-y:auto;padding:12px 14px}
+.dr{margin-bottom:12px}
+.dl{font-size:9px;text-transform:uppercase;letter-spacing:1px;font-weight:700;border-bottom:1px solid rgba(0,0,0,.07);padding-bottom:2px;margin-bottom:4px}
+.dv{font-size:12.5px;line-height:1.5}.dv.b{font-weight:700}.dv.t{font-weight:700;font-size:13px}.dv.s{font-size:11px;color:#666;margin-top:2px}
+.dv.n{font-size:11px;color:#888;background:#f5f0e8;border-radius:6px;padding:6px 9px;margin-top:3px;line-height:1.5}
+#hint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:rgba(26,42,60,.8);color:#fff;font-size:11px;padding:6px 14px;border-radius:20px;pointer-events:none;transition:opacity .3s;white-space:nowrap;max-width:90%;text-align:center}
+#hint.hidden{opacity:0}
+#leg{position:absolute;bottom:12px;left:10px;display:flex;gap:6px;flex-wrap:wrap;pointer-events:none}
+.li2{display:flex;align-items:center;gap:4px;font-size:9.5px;color:#666;background:rgba(255,255,255,.8);padding:2px 7px;border-radius:12px}
+.ld{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+
+/* ── ARTICLE PAGES ── */
+.ap{overflow-y:auto;background:var(--bg)}
+.aw{max-width:1040px;margin:0 auto;padding:20px 22px}
+.ah{margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #ddd5c8}
+.ah h1{font-family:'Playfair Display',serif;font-size:21px;color:var(--ctr);margin-bottom:3px}
+.ah p{font-size:11px;color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.card{background:#fff;border-radius:10px;box-shadow:0 2px 9px rgba(0,0,0,.07);overflow:hidden;display:flex;flex-direction:column;transition:transform .13s,box-shadow .13s}
+.card:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(0,0,0,.11)}
+.ctag{display:flex;align-items:center;gap:6px;padding:9px 12px 0}
+.ctag .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.ctag .lbl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+.ctag .dt{margin-left:auto;font-size:9.5px;color:var(--mut)}
+.cbody{padding:7px 12px 12px;flex:1;display:flex;flex-direction:column}
+.cbody h3{font-size:13px;font-weight:700;line-height:1.35;margin-bottom:5px}
+.cbody p{font-size:11.5px;color:#555;line-height:1.6;flex:1}
+.cmeta{margin-top:9px;display:flex;align-items:center;gap:5px;font-size:10.5px;color:var(--mut);border-top:1px solid #f0ebe2;padding-top:8px;flex-wrap:wrap}
+.cmeta a{color:inherit;text-decoration:none}.cmeta a:hover{color:var(--amb);text-decoration:underline}
+.rbtn{margin-left:auto;display:flex;align-items:center;gap:3px;background:var(--ctr);color:#fff;border:none;border-radius:14px;padding:4px 10px;font-size:10px;font-weight:600;cursor:pointer;font-family:'Source Sans 3',sans-serif;transition:background .13s;white-space:nowrap}
+.rbtn:hover{background:var(--amb)}
+.feat{background:var(--ctr);color:#fff;border-radius:11px;padding:18px 22px;margin-bottom:18px;position:relative;overflow:hidden}
+.feat::before{content:'';position:absolute;top:-40px;right:-40px;width:150px;height:150px;background:rgba(255,255,255,.05);border-radius:50%}
+.ftag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:.6;margin-bottom:5px}
+.feat h2{font-family:'Playfair Display',serif;font-size:17px;line-height:1.3;margin-bottom:7px}
+.feat p{font-size:12px;opacity:.8;line-height:1.6;max-width:620px}
+.fmeta{margin-top:10px;display:flex;align-items:center;gap:10px;font-size:10.5px;opacity:.5;flex-wrap:wrap}
+.fmeta a{color:rgba(255,255,255,.85);text-decoration:none}.fmeta a:hover{color:#fff;text-decoration:underline}
+.frbtn{background:rgba(255,255,255,.18);border:none;color:#fff;border-radius:14px;padding:4px 12px;font-size:10.5px;font-weight:600;cursor:pointer;font-family:'Source Sans 3',sans-serif;transition:background .13s}
+.frbtn:hover{background:rgba(255,255,255,.32)}
+
+/* ── RECHT HUB ── */
+#pg-recht{overflow-y:auto;background:var(--bg)}
+.rh{max-width:1040px;margin:0 auto;padding:20px 22px}
+.rh h1{font-family:'Playfair Display',serif;font-size:21px;color:var(--ctr);margin-bottom:4px}
+.rh .rsub{font-size:11.5px;color:var(--mut);margin-bottom:20px;padding-bottom:13px;border-bottom:2px solid #ddd5c8}
+.rcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:13px}
+.rcard{background:#fff;border-radius:10px;padding:16px;cursor:pointer;box-shadow:0 2px 9px rgba(0,0,0,.07);transition:all .14s;border-left:4px solid transparent;display:flex;flex-direction:column;gap:5px}
+.rcard:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(0,0,0,.11)}
+.rcard .ri{font-size:22px}
+.rcard h3{font-size:13.5px;font-weight:700}
+.rcard p{font-size:11px;color:var(--mut);line-height:1.5}
+.rcard .rc{font-size:11px;font-weight:700;margin-top:3px}
+
+/* ── READER MODAL ── */
+#reader{position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:999;display:none;align-items:center;justify-content:center;padding:16px}
+#reader.show{display:flex}
+#rbox{background:#fff;border-radius:14px;width:100%;max-width:660px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 18px 55px rgba(0,0,0,.28);overflow:hidden}
+#rhdr{background:var(--ctr);color:#fff;padding:13px 18px;display:flex;align-items:center;gap:10px;flex-shrink:0}
+#rhdr h2{font-family:'Playfair Display',serif;font-size:15px;flex:1;line-height:1.3}
+#rcls{background:rgba(255,255,255,.14);border:none;color:#fff;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:15px;line-height:26px;text-align:center;flex-shrink:0}
+#rbody{flex:1;overflow-y:auto;padding:16px 18px}
+#rtabs{display:flex;gap:6px;margin-bottom:14px;border-bottom:2px solid #ede8e0;padding-bottom:10px}
+.rtab{padding:5px 14px;border-radius:20px;border:1.5px solid #ddd;background:#fff;font-size:11.5px;font-weight:600;cursor:pointer;transition:all .13s;color:#555;font-family:'Source Sans 3',sans-serif}
+.rtab.active{background:var(--ctr);color:#fff;border-color:var(--ctr)}
+#rtitle{font-family:'Playfair Display',serif;font-size:16px;color:var(--ctr);margin-bottom:9px;line-height:1.4}
+#rtext{font-size:12.5px;color:#444;line-height:1.7}
+#rsum-area{display:none}
+#rsum-lbl{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--mut);font-weight:700;margin-bottom:7px}
+#rsum{font-size:13px;color:var(--txt);line-height:1.75}
+#rftr{padding:11px 18px;border-top:1px solid #ede8e0;background:#f8f5ef;display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex-shrink:0}
+#rstatus{font-size:11px;color:var(--mut);flex:1;min-width:120px}
+.rplay{display:flex;align-items:center;gap:5px;background:var(--ctr);color:#fff;border:none;border-radius:20px;padding:7px 14px;font-size:11.5px;font-weight:600;cursor:pointer;font-family:'Source Sans 3',sans-serif;transition:background .13s;white-space:nowrap}
+.rplay:hover{background:var(--amb)}.rplay.stop{background:var(--red)}
+.ail{display:flex;align-items:center;gap:6px;color:var(--mut);font-size:12px;font-style:italic}
+.ald{width:6px;height:6px;border-radius:50%;background:var(--amb);animation:pp .9s infinite alternate}
+.ald:nth-child(2){animation-delay:.3s}.ald:nth-child(3){animation-delay:.6s}
+@keyframes pp{from{opacity:.3}to{opacity:1}}
+
+/* ── MOBILE ── */
+@media(max-width:768px){
+  :root{--hh:48px;--sb:260px;--pw:100vw}
+  #menu-btn{display:block}
+  #hdr .gf{display:none}
+  #hdr .stamp{display:none}
+  #sb{position:fixed;top:0;left:0;height:100vh;transform:translateX(-100%);z-index:160}
+  #sb.open{transform:translateX(0)}
+  #sb-overlay.open{display:block}
+  #mw.po{margin-right:0}
+  #panel{position:fixed;width:100vw;height:calc(100vh - var(--hh));top:var(--hh)}
+  .aw{padding:14px 14px}
+  .grid{grid-template-columns:1fr}
+  .feat{padding:14px 16px}
+  .feat h2{font-size:15px}
+  .rh{padding:14px 14px}
+  .rcards{grid-template-columns:1fr 1fr}
+  #leg{display:none}
+  #hint{font-size:10px;padding:5px 12px}
+  .fmeta{gap:6px}
+  #rftr{gap:6px}
+  .rplay{padding:6px 12px;font-size:11px}
+  #rbox{max-height:95vh;border-radius:10px}
+  #rhdr h2{font-size:14px}
+}
+@media(max-width:420px){
+  .rcards{grid-template-columns:1fr}
+  .feat h2{font-size:14px}
+  .cbody h3{font-size:12.5px}
+}
+</style>
+</head>
+<body>
+
+<div id="hdr">
+  <button id="menu-btn" onclick="toggleMenu()">☰</button>
+  <div class="logo">PFLEGEWERK <span>Portal</span></div>
+  <div class="gf">Dr. Georgios Giannakopoulos &amp; Anastasia Giannakopoulos · 030 / 39 60 05 10</div>
+  <div class="stamp">Stand:<br>20.04.2026</div>
+</div>
+<div id="sb-overlay" onclick="closeMenu()"></div>
+
+<div id="app">
+<nav id="sb">
+  <div class="sbs"><div class="sbl">Übersicht</div>
+    <div class="ni active" data-pg="mm"><span class="ico">🗺️</span>Einrichtungen</div>
+  </div>
+  <div class="sbs"><div class="sbl">Informationen</div>
+    <div class="ni" data-pg="news"><span class="ico">📰</span>News &amp; Presse<span class="bdg">5</span></div>
+    <div class="ni" data-pg="recht"><span class="ico">⚖️</span>Rechtliches<span class="bdg o">9</span></div>
+  </div>
+  <div class="sbs"><div class="sbl">Rechtsbereiche</div>
+    <div class="ni sub" data-pg="ar"><span class="ico">👔</span>Arbeitsrecht<span class="bdg b">3</span></div>
+    <div class="ni sub" data-pg="ir"><span class="ico">📉</span>Insolvenzrecht<span class="bdg b">2</span></div>
+    <div class="ni sub" data-pg="mr"><span class="ico">🏘️</span>Mietrecht<span class="bdg b">2</span></div>
+    <div class="ni sub" data-pg="pr"><span class="ico">🩺</span>Recht &amp; Pflege<span class="bdg g">2</span></div>
+  </div>
+  <div id="sbf">Pflegewerk Gruppe · Stand 20.04.2026</div>
+</nav>
+
+<div id="cnt">
+
+<!-- MINDMAP -->
+<div class="pg active" id="pg-mm">
+  <div id="mw">
+    <svg id="map" viewBox="-80 -60 1200 960" preserveAspectRatio="xMidYMid meet"></svg>
+    <div id="hint">Bereich antippen um Standorte zu erkunden</div>
+    <div id="leg">
+      <div class="li2"><div class="ld" style="background:#1a6fa8"></div>Ambulant</div>
+      <div class="li2"><div class="ld" style="background:#1a7b5e"></div>Betreutes Wohnen</div>
+      <div class="li2"><div class="ld" style="background:#b5600d"></div>Tagespflege</div>
+      <div class="li2"><div class="ld" style="background:#7b2d8b"></div>Therapie</div>
+      <div class="li2"><div class="ld" style="background:#8b6914"></div>Kurse</div>
+    </div>
+  </div>
+  <div id="panel">
+    <div id="ph"><div class="bl" id="pb"></div><div class="in" id="pn"></div><button id="pc">×</button></div>
+    <div class="xs"><div class="sl">Geschäftsführung</div><div class="sn">Dr. Georgios &amp; Anastasia Giannakopoulos</div><div class="st">📞 030 / 39 60 05 10</div></div>
+    <div class="xs" id="bs" style="display:none"><div class="sl">Bereichsleitung</div><div id="bsc"></div></div>
+    <div id="pb">
+      <div class="dr"><div class="dl">📍 Adresse</div><div class="dv" id="da"></div></div>
+      <div class="dr"><div class="dl">👤 Leitung vor Ort</div><div class="dv b" id="dp"></div><div class="dv s" id="dro"></div></div>
+      <div class="dr"><div class="dl">📞 Telefon</div><div class="dv t" id="dt"></div></div>
+      <div class="dr" id="nr" style="display:none"><div class="dl">ℹ️ Hinweis</div><div class="dv n" id="dn"></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWS -->
+<div class="pg ap" id="pg-news">
+  <div class="aw">
+    <div class="ah"><h1>📰 News &amp; Presse</h1><p>Aktuelle Berichte über Pflegewerk · Stand: 20.04.2026</p></div>
+    <div class="feat">
+  <div class="ftag">🔥 Aktuellste Meldung · Pflegewerk direkt betroffen</div>
+  <h2>Pflegewerk Brandenburg GmbH meldet Insolvenz an</h2><p>Das Amtsgericht Charlottenburg bestellte Martin Herrmann zum vorläufigen Insolvenzverwalter. Betrieb läuft uneingeschränkt weiter.</p>
+  <div class="fmeta">
+    <span>Jan. 2026</span>
+    <span><a href="https://www.pflegemarkt.com/news/veraenderungen/pflegewerk-berlin-insolvent/" target="_blank">pflegemarkt.com</a></span>
+    <button class="frbtn" onclick='openReader("Pflegewerk Brandenburg GmbH meldet Insolvenz an","Pflegewerk Brandenburg GmbH meldet Insolvenz an. Das Amtsgericht Charlottenburg bestellte Martin Herrmann zum vorläufigen Insolvenzverwalter. Betrieb läuft uneingeschränkt weiter.")'>🔊 KI vorlesen</button>
+  </div></div>
+    <div class="grid"><div class="card">
+  <div class="ctag"><div class="dot" style="background:#c0392b"></div>
+    <span class="lbl" style="color:#c0392b">⚠️ pflegewerk</span>
+    <span class="dt">Jan. 2026</span></div>
+  <div class="cbody">
+    <h3>Pflegewerk Brandenburg GmbH meldet Insolvenz an</h3><p>Das Amtsgericht Charlottenburg bestellte Martin Herrmann zum vorläufigen Insolvenzverwalter. Betrieb läuft uneingeschränkt weiter.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.pflegemarkt.com/news/veraenderungen/pflegewerk-berlin-insolvent/" target="_blank">pflegemarkt.com</a></span>
+      <button class="rbtn" onclick='openReader("Pflegewerk Brandenburg GmbH meldet Insolvenz an","Pflegewerk Brandenburg GmbH meldet Insolvenz an. Das Amtsgericht Charlottenburg bestellte Martin Herrmann zum vorläufigen Insolvenzverwalter. Betrieb läuft uneingeschränkt weiter.")'>🔊 KI vorlesen</button>
+    </div>
+  </div></div>
+<div class="card">
+  <div class="ctag"><div class="dot" style="background:#c0392b"></div>
+    <span class="lbl" style="color:#c0392b">⚠️ pflegewerk</span>
+    <span class="dt">Okt. 2025</span></div>
+  <div class="cbody">
+    <h3>Pflegewerk Berlin GmbH: Insolvenzantrag</h3><p>PLUTA-Insolvenzverwalter Frank Brachwitz sichert die fünf Berliner Sozialstationen.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.unternehmeredition.de/pflegewerk-berlin-stellt-insolvenzantrag/" target="_blank">PLUTA</a></span>
+      <button class="rbtn" onclick='openReader("Pflegewerk Berlin GmbH: Insolvenzantrag","Pflegewerk Berlin GmbH: Insolvenzantrag. PLUTA-Insolvenzverwalter Frank Brachwitz sichert die fünf Berliner Sozialstationen.")'>🔊 KI vorlesen</button>
+    </div>
+  </div></div>
+<div class="card">
+  <div class="ctag"><div class="dot" style="background:#1a7b5e"></div>
+    <span class="lbl" style="color:#1a7b5e">✅ pflegewerk</span>
+    <span class="dt">Juni 2025</span></div>
+  <div class="cbody">
+    <h3>Pflegewerk übernimmt alle Kenbi-Standorte</h3><p>470 Beschäftigte übernommen. Ambulante Pflege +50%, Tagespflegeplätze +347%.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.altenheim.net/insolvenz-pflegewerk-gruppe-uebernimmt-einrichtungen-von-kenbi/" target="_blank">Streitbörger</a></span>
+      <button class="rbtn" onclick='openReader("Pflegewerk übernimmt alle Kenbi-Standorte","Pflegewerk übernimmt alle Kenbi-Standorte. 470 Beschäftigte übernommen. Ambulante Pflege +50%, Tagespflegeplätze +347%.")'>🔊 KI vorlesen</button>
+    </div>
+  </div></div>
+<div class="card">
+  <div class="ctag"><div class="dot" style="background:#1a6fa8"></div>
+    <span class="lbl" style="color:#1a6fa8">📜 branche</span>
+    <span class="dt">Jan. 2026</span></div>
+  <div class="cbody">
+    <h3>BEEP-Gesetz in Kraft</h3><p>Seit 1. Januar 2026 dürfen Pflegefachpersonen eigenverantwortlich Heilkundeleistungen erbringen.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.bundesgesundheitsministerium.de/" target="_blank">BMG</a></span>
+      <button class="rbtn" onclick='openReader("BEEP-Gesetz in Kraft","BEEP-Gesetz in Kraft. Seit 1. Januar 2026 dürfen Pflegefachpersonen eigenverantwortlich Heilkundeleistungen erbringen.")'>🔊 KI vorlesen</button>
+    </div>
+  </div></div>
+<div class="card">
+  <div class="ctag"><div class="dot" style="background:#1a6fa8"></div>
+    <span class="lbl" style="color:#1a6fa8">📈 branche</span>
+    <span class="dt">März 2026</span></div>
+  <div class="cbody">
+    <h3>64.300 neue Pflegeazubis 2025</h3><p>Ausbildungsrekord. +8% gegenüber Vorjahr.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://deutscher-pflegerat.de/" target="_blank">Pflegerat</a></span>
+      <button class="rbtn" onclick='openReader("64.300 neue Pflegeazubis 2025","64.300 neue Pflegeazubis 2025. Ausbildungsrekord. +8% gegenüber Vorjahr.")'>🔊 KI vorlesen</button>
+    </div>
+  </div></div></div>
+  </div>
+</div>
+
+<!-- RECHTLICHES HUB -->
+<div class="pg" id="pg-recht" style="overflow-y:auto;background:var(--bg)">
+  <div class="rh">
+    <h1>⚖️ Rechtliches</h1>
+    <p class="rsub">Aktuelle Urteile &amp; Gesetzesänderungen · Quellen: LTO.de, Otto Schmidt, BAG · Stand: 20.04.2026</p>
+    <div class="rcards">
+      <div class="rcard" style="border-left-color:#e67e22" onclick="nav('ar')">
+        <div class="ri">👔</div><h3>Arbeitsrecht</h3>
+        <p>Kündigung, Abmahnung, Low Performer, Homeoffice, Mindestlohn – ohne Betriebsrat</p>
+        <div class="rc" style="color:#e67e22">3 Artikel →</div>
+      </div>
+      <div class="rcard" style="border-left-color:#c0392b" onclick="nav('ir')">
+        <div class="ri">📉</div><h3>Insolvenzrecht</h3>
+        <p>Unternehmensinsolvenzen, Sanierungspflichten, EU-Harmonisierung</p>
+        <div class="rc" style="color:#c0392b">2 Artikel →</div>
+      </div>
+      <div class="rcard" style="border-left-color:#1a6fa8" onclick="nav('mr')">
+        <div class="ri">🏘️</div><h3>Mietrecht</h3>
+        <p>Mietpreisbremse, Indexmieten, BGH-Urteile, Gewerberaum</p>
+        <div class="rc" style="color:#1a6fa8">2 Artikel →</div>
+      </div>
+      <div class="rcard" style="border-left-color:#1a7b5e" onclick="nav('pr')">
+        <div class="ri">🩺</div><h3>Recht &amp; Pflege</h3>
+        <p>BEEP-Gesetz, Pflegereform, Verhinderungspflege</p>
+        <div class="rc" style="color:#1a7b5e">2 Artikel →</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ARBEITSRECHT -->
+<div class="pg ap" id="pg-ar">
+  <div class="aw">
+    <div class="ah"><h1>👔 Arbeitsrecht</h1><p>Quellen: LTO.de, Otto Schmidt, BAG · Individualarbeitsrecht ohne Betriebsrat · Stand: 20.04.2026</p></div>
+    <div class="feat">
+  <div class="ftag">⭐ Priorität für betriebsratslose Arbeitgeber</div>
+  <h2>BAG: Einwurf-Einschreiben beweist Kündigungszugang nicht mehr</h2><p>BAG (30.01.2025): Kein Anscheinsbeweis durch Online-Sendungsstatus. Persönliche Übergabe empfehlenswert.</p>
+  <div class="fmeta">
+    <span>Jan. 2025</span>
+    <span><a href="https://www.lto.de/recht/hintergruende/h/arbeitsrecht-neuerungen-2026-mindestlohn-aktivrente" target="_blank">LTO.de</a></span>
+    <button class="frbtn" onclick='openReader("BAG: Einwurf-Einschreiben beweist Kündigungszugang nicht mehr","BAG: Einwurf-Einschreiben beweist Kündigungszugang nicht mehr. BAG (30.01.2025): Kein Anscheinsbeweis durch Online-Sendungsstatus. Persönliche Übergabe empfehlenswert.")'>🔊 KI vorlesen</button>
+  </div></div>
+    <div class="grid"><div class="card">
+  <div class="ctag"><div class="dot" style="background:#e67e22"></div>
+    <span class="lbl" style="color:#e67e22"> ⭐ Individualarbeitsrecht</span>
+    <span class="dt">Jan. 2025</span></div>
+  <div class="cbody">
+    <h3>LAG Köln: Kündigung Low Performer – strenge Anforderungen</h3><p>AN muss Durchschnittsleistung um mehr als ein Drittel unterschreiten. Jahrelanges Ignorieren vereitelt Kündigung.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://kliemt.blog/" target="_blank">kliemt.blog</a></span>
+      <button class="rbtn" onclick='openReader("LAG Köln: Kündigung Low Performer – strenge Anforderungen","LAG Köln: Kündigung Low Performer – strenge Anforderungen. AN muss Durchschnittsleistung um mehr als ein Drittel unterschreiten. Jahrelanges Ignorieren vereitelt Kündigung.")'>🔊 KI vorlesen</button>
+    </div>
+  </div></div>
+<div class="card">
+  <div class="ctag"><div class="dot" style="background:#555"></div>
+    <span class="lbl" style="color:#555"> Mindestlohn</span>
+    <span class="dt">Jan. 2026</span></div>
+  <div class="cbody">
+    <h3>Mindestlohn 13,90€ – Pflegemindestlohn ab Juli 2026 höher</h3><p>Ab Juli 2026: 16,52€ für einfache, 17,80€ für qualifizierte Pflegekräfte.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.lto.de/" target="_blank">LTO.de</a></span>
+      <button class="rbtn" onclick='openReader("Mindestlohn 13,90€ – Pflegemindestlohn ab Juli 2026 höher","Mindestlohn 13,90€ – Pflegemindestlohn ab Juli 2026 höher. Ab Juli 2026: 16,52€ für einfache, 17,80€ für qualifizierte Pflegekräfte.")'>🔊 KI vorlesen</button>
+    </div>
+  </div></div>
+<div class="card">
+  <div class="ctag"><div class="dot" style="background:#555"></div>
+    <span class="lbl" style="color:#555"> BEM-Pflicht</span>
+    <span class="dt">Jan. 2026</span></div>
+  <div class="cbody">
+    <h3>BEM-Verfahren Pflicht bei 6 Wochen AU/Jahr</h3><p>Ohne BEM ist krankheitsbedingte Kündigung kaum haltbar.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.springerprofessional.de/" target="_blank">springerprofessional.de</a></span>
+      <button class="rbtn" onclick='openReader("BEM-Verfahren Pflicht bei 6 Wochen AU/Jahr","BEM-Verfahren Pflicht bei 6 Wochen AU/Jahr. Ohne BEM ist krankheitsbedingte Kündigung kaum haltbar.")'>🔊 KI vorlesen</button>
+    </div>
+  </div></div></div>
+  </div>
+</div>
+
+<!-- INSOLVENZRECHT -->
+<div class="pg ap" id="pg-ir">
+  <div class="aw">
+    <div class="ah"><h1>📉 Insolvenzrecht</h1><p>Stand: 20.04.2026</p></div>
+    <div class="feat">
+  <div class="ftag">📈 Insolvenzzahlen steigen weiter</div>
+  <h2>+4,9% Unternehmensinsolvenzen Januar 2026</h2><p>1.919 beantragte Insolvenzen, +4,9% ggü. Vorjahr.</p>
+  <div class="fmeta">
+    <span>April 2026</span>
+    <span><a href="https://www.destatis.de/" target="_blank">Statistisches Bundesamt</a></span>
+    <button class="frbtn" onclick='openReader("+4,9% Unternehmensinsolvenzen Januar 2026","+4,9% Unternehmensinsolvenzen Januar 2026. 1.919 beantragte Insolvenzen, +4,9% ggü. Vorjahr.")'>🔊 KI vorlesen</button>
+  </div></div>
+    <div class="grid"><div class="card">
+  <div class="ctag"><div class="dot" style="background:#c0392b"></div>
+    <span class="lbl" style="color:#c0392b"> Insolvenzen</span>
+    <span class="dt">April 2026</span></div>
+  <div class="cbody">
+    <h3>1.919 Unternehmensinsolvenzen im Januar 2026</h3><p>Statistisches Bundesamt: Anhaltender Anstieg seit 2024.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.stangl-keppeler.de/" target="_blank">Stat. Bundesamt</a></span>
+      <button class="rbtn" onclick='openReader("1.919 Unternehmensinsolvenzen im Januar 2026","1.919 Unternehmensinsolvenzen im Januar 2026. Statistisches Bundesamt: Anhaltender Anstieg seit 2024.")'>🔊 KI vorlesen</button>
+    </div>
+  </div></div>
+<div class="card">
+  <div class="ctag"><div class="dot" style="background:#c0392b"></div>
+    <span class="lbl" style="color:#c0392b"> GF-Haftung</span>
+    <span class="dt">Jan. 2025</span></div>
+  <div class="cbody">
+    <h3>Insolvenzantragspflicht gilt wieder voll</h3><p>Bei Verzögerung droht GF persönliche Haftung.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.schultze-braun.de/" target="_blank">Schultze & Braun</a></span>
+      <button class="rbtn" onclick='openReader("Insolvenzantragspflicht gilt wieder voll","Insolvenzantragspflicht gilt wieder voll. Bei Verzögerung droht GF persönliche Haftung.")'>🔊 KI vorlesen</button>
+    </div>
+  </div></div></div>
+  </div>
+</div>
+
+<!-- MIETRECHT -->
+<div class="pg ap" id="pg-mr">
+  <div class="aw">
+    <div class="ah"><h1>🏘️ Mietrecht</h1><p>Stand: 20.04.2026</p></div>
+    <div class="feat">
+  <div class="ftag">🔴 Referentenentwurf Februar 2026</div>
+  <h2>BMJV: Indexmieten gedeckelt</h2><p>Indexmieten auf 3,5% p.a. begrenzt.</p>
+  <div class="fmeta">
+    <span>Feb. 2026</span>
+    <span><a href="https://kpmg-law.de/" target="_blank">KPMG Law</a></span>
+    <button class="frbtn" onclick='openReader("BMJV: Indexmieten gedeckelt","BMJV: Indexmieten gedeckelt. Indexmieten auf 3,5% p.a. begrenzt.")'>🔊 KI vorlesen</button>
+  </div></div>
+    <div class="grid"><div class="card">
+  <div class="ctag"><div class="dot" style="background:#1a6fa8"></div>
+    <span class="lbl" style="color:#1a6fa8"> Reform 2026</span>
+    <span class="dt">Feb. 2026</span></div>
+  <div class="cbody">
+    <h3>Referentenentwurf Mietrecht 2026</h3><p>Indexmieten auf 3,5% gedeckelt, Möblierungszuschläge begrenzt.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://kpmg-law.de/" target="_blank">KPMG Law</a></span>
+      <button class="rbtn" onclick='openReader("Referentenentwurf Mietrecht 2026","Referentenentwurf Mietrecht 2026. Indexmieten auf 3,5% gedeckelt, Möblierungszuschläge begrenzt.")'>🔊 KI vorlesen</button>
+    </div>
+  </div></div>
+<div class="card">
+  <div class="ctag"><div class="dot" style="background:#1a6fa8"></div>
+    <span class="lbl" style="color:#1a6fa8"> Mietpreisbremse</span>
+    <span class="dt">Dez. 2025</span></div>
+  <div class="cbody">
+    <h3>Mietpreisbremse bis 2029 verlängert</h3><p>Maximal 10% über Vergleichsmiete in angespannten Gebieten.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://ivd.net/" target="_blank">IVD</a></span>
+      <button class="rbtn" onclick='openReader("Mietpreisbremse bis 2029 verlängert","Mietpreisbremse bis 2029 verlängert. Maximal 10% über Vergleichsmiete in angespannten Gebieten.")'>🔊 KI vorlesen</button>
+    </div>
+  </div></div></div>
+  </div>
+</div>
+
+<!-- RECHT & PFLEGE -->
+<div class="pg ap" id="pg-pr">
+  <div class="aw">
+    <div class="ah"><h1>🩺 Recht &amp; Pflege</h1><p>Stand: 20.04.2026</p></div>
+    <div class="feat">
+  <div class="ftag">✅ In Kraft seit 1. Januar 2026</div>
+  <h2>BEEP: Neue Heilkundebefugnisse für Pflegekräfte</h2><p>In Kraft seit 1.1.2026. Verhinderungspflege-Frist auf 1 Jahr verkürzt.</p>
+  <div class="fmeta">
+    <span>Jan. 2026</span>
+    <span><a href="https://www.bundesgesundheitsministerium.de/" target="_blank">BMG</a></span>
+    <button class="frbtn" onclick='openReader("BEEP: Neue Heilkundebefugnisse für Pflegekräfte","BEEP: Neue Heilkundebefugnisse für Pflegekräfte. In Kraft seit 1.1.2026. Verhinderungspflege-Frist auf 1 Jahr verkürzt.")'>🔊 KI vorlesen</button>
+  </div></div>
+    <div class="grid"><div class="card">
+  <div class="ctag"><div class="dot" style="background:#1a7b5e"></div>
+    <span class="lbl" style="color:#1a7b5e"> BEEP-Gesetz</span>
+    <span class="dt">Jan. 2026</span></div>
+  <div class="cbody">
+    <h3>Verhinderungspflege nur noch 1 Jahr rückwirkend</h3><p>Nur noch für laufendes und voriges Kalenderjahr abrechnebar.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://pflegewaechter.de/" target="_blank">pflegewaechter.de</a></span>
+      <button class="rbtn" onclick='openReader("Verhinderungspflege nur noch 1 Jahr rückwirkend","Verhinderungspflege nur noch 1 Jahr rückwirkend. Nur noch für laufendes und voriges Kalenderjahr abrechnebar.")'>🔊 KI vorlesen</button>
+    </div>
+  </div></div>
+<div class="card">
+  <div class="ctag"><div class="dot" style="background:#555"></div>
+    <span class="lbl" style="color:#555"> Pflegereform</span>
+    <span class="dt">Dez. 2025</span></div>
+  <div class="cbody">
+    <h3>Zukunftspakt Pflege: Reformgesetz Ende 2026 geplant</h3><p>Eckpunkte liegen vor. Gesetz soll Ende 2026 in Kraft treten.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.pflegeabc.de/" target="_blank">pflegeabc.de</a></span>
+      <button class="rbtn" onclick='openReader("Zukunftspakt Pflege: Reformgesetz Ende 2026 geplant","Zukunftspakt Pflege: Reformgesetz Ende 2026 geplant. Eckpunkte liegen vor. Gesetz soll Ende 2026 in Kraft treten.")'>🔊 KI vorlesen</button>
+    </div>
+  </div></div></div>
+  </div>
+</div>
+
+</div></div>
+
+<!-- READER MODAL -->
+<div id="reader" onclick="closeReader(event)">
+  <div id="rbox" onclick="event.stopPropagation()">
+    <div id="rhdr">
+      <span style="font-size:16px;flex-shrink:0">🔊</span>
+      <h2>KI-Leser</h2>
+      <button id="rcls" onclick="closeReader()">×</button>
+    </div>
+    <div id="rbody">
+      <div id="rtabs">
+        <button class="rtab active" onclick="switchTab('sum')">🤖 KI-Zusammenfassung</button>
+        <button class="rtab" onclick="switchTab('orig')">📄 Originaltext</button>
+      </div>
+      <div id="rtitle"></div>
+      <div id="rsum-area">
+        <div id="rsum-lbl">KI-Zusammenfassung</div>
+        <div id="rsum"></div>
+      </div>
+      <div id="rorig-area" style="display:none">
+        <div id="rtext"></div>
+      </div>
+    </div>
+    <div id="rftr">
+      <span id="rstatus">Bereit</span>
+      <button class="rplay" id="rspeak-sum" onclick="speakActive()">▶️ Vorlesen</button>
+      <button class="rplay" id="rspeak-orig" onclick="speakOrig()" style="background:#555">🗣️ Original (~<span id="rtime">?</span>)</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── NAV ──────────────────────────────────────────────────────────────────────
+function nav(id){
+  document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
+  const pg=document.getElementById('pg-'+id);
+  if(pg)pg.classList.add('active');
+  const ni=document.querySelector('.ni[data-pg="'+id+'"]');
+  if(ni)ni.classList.add('active');
+  closeMenu();
+}
+document.querySelectorAll('.ni[data-pg]').forEach(n=>n.addEventListener('click',()=>nav(n.dataset.pg)));
+
+// ── MOBILE MENU ───────────────────────────────────────────────────────────────
+function toggleMenu(){
+  document.getElementById('sb').classList.toggle('open');
+  document.getElementById('sb-overlay').classList.toggle('open');
+}
+function closeMenu(){
+  document.getElementById('sb').classList.remove('open');
+  document.getElementById('sb-overlay').classList.remove('open');
+}
+
+// ── READER ────────────────────────────────────────────────────────────────────
+let _title='', _text='', _sumText='', _tab='sum', _speaking=false;
+
+function openReader(title, text){
+  _title=title; _text=text; _sumText=''; _tab='sum';
+  document.getElementById('rtitle').textContent=title;
+  document.getElementById('rtext').textContent=text;
+  // Lesezeit berechnen
+  const words=text.split(' ').length;
+  const mins=words/130;
+  const timeStr=mins<1?'~30 Sek.':`~${Math.ceil(mins)} Min.`;
+  document.getElementById('rtime').textContent=timeStr;
+  // Summary Tab active
+  document.getElementById('rsum-area').style.display='block';
+  document.getElementById('rorig-area').style.display='none';
+  document.querySelectorAll('.rtab').forEach((t,i)=>t.classList.toggle('active',i===0));
+  document.getElementById('rsum-lbl').textContent='KI-Zusammenfassung';
+  document.getElementById('rsum').innerHTML='<div class="ail"><div class="ald"></div><div class="ald"></div><div class="ald"></div>&nbsp;KI analysiert…</div>';
+  document.getElementById('rstatus').textContent='Zusammenfassung wird geladen…';
+  stopSpeak();
+  document.getElementById('reader').classList.add('show');
+  loadSummary(title, text);
+}
+
+function switchTab(tab){
+  _tab=tab;
+  stopSpeak();
+  document.querySelectorAll('.rtab').forEach((t,i)=>t.classList.toggle('active',(tab==='sum'&&i===0)||(tab==='orig'&&i===1)));
+  document.getElementById('rsum-area').style.display=tab==='sum'?'block':'none';
+  document.getElementById('rorig-area').style.display=tab==='orig'?'block':'none';
+  document.getElementById('rstatus').textContent=tab==='sum'?'Zusammenfassung · ▶️ vorlesen':'Originaltext · ▶️ vorlesen';
+}
+
+function closeReader(e){
+  if(e&&e.target!==document.getElementById('reader'))return;
+  stopSpeak();
+  document.getElementById('reader').classList.remove('show');
+}
+
+async function loadSummary(title, text){
+  const prompt=`Du bist ein internes KI-Tool der Pflegewerk Gruppe (ambulante Pflege, Betreutes Wohnen, Tagespflege, kein Betriebsrat).
+
+Erstelle eine ausführliche Zusammenfassung des folgenden Artikels in 5-7 Sätzen. Erkläre:
+1. Was ist passiert / was hat das Gericht entschieden?
+2. Was bedeutet das konkret für einen Pflegebetrieb ohne Betriebsrat?
+3. Welche Handlungsempfehlung ergibt sich daraus?
+
+Schreibe klar, sachlich und direkt. Keine Einleitung wie "Gerne" oder "Natürlich".
+
+Titel: ${title}
+Text: ${text}`;
+  try{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:600,messages:[{role:'user',content:prompt}]})
+    });
+    if(!res.ok)throw new Error('HTTP '+res.status);
+    const d=await res.json();
+    _sumText=d.content?.[0]?.text||'Keine Zusammenfassung verfügbar.';
+    document.getElementById('rsum').textContent=_sumText;
+    document.getElementById('rsum-lbl').textContent='🤖 KI-Zusammenfassung';
+    document.getElementById('rstatus').textContent='Bereit · ▶️ zum Vorlesen';
+  }catch(e){
+    _sumText=_text;
+    document.getElementById('rsum').textContent='KI nicht verfügbar ('+e.message+'). Originaltext wird vorgelesen.';
+    document.getElementById('rstatus').textContent='▶️ Originaltext vorlesen';
+  }
+}
+
+function speakActive(){
+  if(_speaking){stopSpeak();return;}
+  const txt=_tab==='sum'?(_sumText||_text):_text;
+  speak(_title+'. '+txt, document.getElementById('rspeak-sum'));
+}
+
+function speakOrig(){
+  if(_speaking){stopSpeak();return;}
+  speak(_title+'. '+_text, document.getElementById('rspeak-orig'));
+}
+
+function speak(text, btn){
+  if(!window.speechSynthesis){alert('Sprachsynthese nicht unterstützt.');return;}
+  stopSpeak();
+  const u=new SpeechSynthesisUtterance(text);
+  u.lang='de-DE';u.rate=0.93;
+  u.onstart=()=>{_speaking=true;if(btn){btn.textContent='⏹ Stoppen';btn.className='rplay stop';}document.getElementById('rstatus').textContent='🔊 Wird vorgelesen…';};
+  u.onend=u.onerror=()=>{_speaking=false;document.getElementById('rspeak-sum').innerHTML='▶️ Vorlesen';document.getElementById('rspeak-sum').className='rplay';document.getElementById('rspeak-orig').innerHTML='🗣️ Original (~<span id="rtime">'+document.getElementById('rtime').textContent+'</span>)';document.getElementById('rspeak-orig').className='rplay';document.getElementById('rspeak-orig').style.background='#555';document.getElementById('rstatus').textContent='Fertig';};
+  window.speechSynthesis.speak(u);
+}
+function stopSpeak(){if(window.speechSynthesis)window.speechSynthesis.cancel();_speaking=false;}
+
+// ── MINDMAP ───────────────────────────────────────────────────────────────────
+const P='Evelyn Schoepe',PT='030 / 470 80 621',PR_='GF Philos Seniorenresidenzen GmbH';
+const B=[
+  {id:'ambulant',name:'AMBULANTE\nPFLEGE',icon:'🏠',color:'#1a6fa8',light:'#d8ecf7',angle:-108,r:195,
+   leitung:[{name:'Gianna Trevisan',rolle:'GL Berlin',tel:'030 / 45 47 83 15'},{name:'Daniel Bartholomä',rolle:'Stv. GL Berlin',tel:'030 / 45 47 83 15'},{name:'Jeanette Nowicki',rolle:'GL Erding/HH/München/Magdeburg',tel:'030 / 45 47 83 17'},{name:'Frank Lehmköster',rolle:'GL Köln/Pulheim',tel:'0221 / 28 58 18-0'}],
+   gruppen:[
+    {id:'ab',name:'Berlin',kinder:[
+      {id:'a1',name:'Friedrichshain',addr:'Matthiasstraße 7, 10249 Berlin',pdl:'Andrea Poet',rolle:'PDL',tel:'030 / 42 10 89 60',note:''},
+      {id:'a2',name:'Neukölln',addr:'Moosrosenstraße 25, 12347 Berlin',pdl:'Negosava Markovic',rolle:'PDL',tel:'030 / 606 20 54',note:''},
+      {id:'a3',name:'Reinickendorf',addr:'Senftenberger Ring 5a, 13439 Berlin',pdl:'Peggi-Alexandra Bressem',rolle:'PDL',tel:'030 / 407 79 70',note:''},
+      {id:'a4',name:'Tempelhof',addr:'Manfred-von-Richthofen-Str. 10, 12101 Berlin',pdl:'Benjamin Paulsen',rolle:'PDL',tel:'030 / 785 70 01',note:''},
+      {id:'a5',name:'Wedding',addr:'Osloer Straße 106/107, 13359 Berlin',pdl:'Birgit Wroblewski',rolle:'PDL',tel:'030 / 454 78 30',note:''},
+      {id:'a6',name:'Steglitz (BBZ)',addr:'Filandastraße 5-6, 12169 Berlin',pdl:'BBZ Berliner Betreuungszentrum gGmbH',rolle:'Verbundunternehmen',tel:'—',note:'www.berliner-betreuungszentrum.de'}
+    ]},
+    {id:'as',name:'Süddeutschland',kinder:[
+      {id:'a7',name:'Erding',addr:'Dorfener Straße 7a, 85435 Erding',pdl:'Alexandra Sellmeier',rolle:'PDL',tel:'08122 / 94 30-40',note:''},
+      {id:'a8',name:'München',addr:'Franz-Joseph-Straße 27, 80801 München',pdl:'Milijana Dejanovic',rolle:'PDL',tel:'089 / 383 77 46-0',note:'Beratungsbüro Ismaning: Schloßstr. 12'}
+    ]},
+    {id:'an',name:'NRW',kinder:[
+      {id:'a9',name:'Köln Nord',addr:'Rochusstraße 214, 50827 Köln',pdl:'Elefteria Gogos',rolle:'PDL',tel:'0221 / 28 58 18-16',note:''},
+      {id:'a10',name:'Pulheim',addr:'Sinnersdorfer Str. 55–57, 50259 Pulheim',pdl:'Bettina Kabitzki',rolle:'PDL',tel:'02238 / 575 97',note:''}
+    ]},
+    {id:'al',name:'Sachsen-Anhalt',kinder:[
+      {id:'a11',name:'Magdeburg',addr:'Liebigstraße 7, 39104 Magdeburg',pdl:'Diana Koch',rolle:'PDL',tel:'0391 / 59 77 61 55',note:''},
+      {id:'a12',name:'Stendal',addr:'Preußenstraße 56, 39576 Stendal',pdl:'Susanne Sommer',rolle:'PDL',tel:'03931 / 41 02 660',note:''}
+    ]}
+  ]},
+  {id:'betreut',name:'BETREUTES\nWOHNEN',icon:'🏡',color:'#1a7b5e',light:'#cceedd',angle:-36,r:195,
+   leitung:[{name:P,rolle:PR_,tel:PT}],
+   gruppen:[
+    {id:'bw',name:'Berlin West/Mitte',kinder:[
+      {id:'b6',name:'Kurfürstendamm',addr:'Kurfürstendamm 126/127, 10711 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
+      {id:'b8',name:'Michaelkirchstraße',addr:'Michaelkirchstraße 18-19, 10179 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
+      {id:'b13',name:'Turmstraße',addr:'Turmstraße 21, 10559 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
+      {id:'b11',name:'Schloßstraße',addr:'Schloßstraße 2, 14059 Berlin',pdl:P,rolle:PR_,tel:PT,note:''}
+    ]},
+    {id:'bn',name:'Berlin Nord',kinder:[
+      {id:'b2',name:'Falkentaler Steig',addr:'Falkentaler Steig 47/49, 13467 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
+      {id:'b4',name:'Jean-Jaurès-Str.',addr:'Jean-Jaurès-Str. 7/7a, 13469 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
+      {id:'b12',name:'Spießweg',addr:'Spießweg 38, 13437 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
+      {id:'b15',name:'Zobeltitzstraße',addr:'Zobeltitzstraße 117, 13403 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
+      {id:'b3',name:'Freudstraße',addr:'Freudstraße 13, 13589 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
+      {id:'b10',name:'Niederneuendorfer Allee',addr:'Niederneuendorfer Allee 13, 13587 Berlin',pdl:P,rolle:PR_,tel:PT,note:''}
+    ]},
+    {id:'bs',name:'Berlin Süd/Ost',kinder:[
+      {id:'b1',name:'Blumberger Damm',addr:'Blumberger Damm 231, 12687 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
+      {id:'b5',name:'Ketschendorfer Weg',addr:'Ketschendorfer Weg 33, 12683 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
+      {id:'b7',name:'Lichtenrader Damm',addr:'Lichtenrader Damm 51-57, 12305 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
+      {id:'b9',name:'Moosrosenstraße',addr:'Moosrosenstraße 25, 12347 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
+      {id:'b14',name:'Walter-May-Weg',addr:'Walter-May-Weg 12, 12353 Berlin',pdl:P,rolle:PR_,tel:PT,note:''}
+    ]},
+    {id:'bl',name:'Sachsen-Anhalt',kinder:[
+      {id:'b16',name:'Biederitz (BW)',addr:'Vechelder Weg 10, 39175 Biederitz',pdl:P,rolle:PR_,tel:PT,note:'Wohnpark an der Ehle'},
+      {id:'b17',name:'Magdeburg (BW)',addr:'Einsteinstraße 13a/b, 39104 Magdeburg',pdl:P,rolle:PR_,tel:PT,note:'Senioren-WG Altstadt'}
+    ]}
+  ]},
+  {id:'tagespflege',name:'TAGES-\nPFLEGE',icon:'☀️',color:'#b5600d',light:'#fde8cc',angle:36,r:195,leitung:[],
+   gruppen:[
+    {id:'th',name:'Hamburg',kinder:[
+      {id:'t1',name:'Langenhorner Ch.',addr:'Langenhorner Chaussee 666, 22419 Hamburg',pdl:'Alexandra Schröder',rolle:'PDL',tel:'040 / 53 71 74 17',note:''},
+      {id:'t2',name:'Wandsbek',addr:'Ahrensburger Straße 95, 22041 Hamburg',pdl:'Katharina Yavorskyy',rolle:'PDL',tel:'040 / 30 98 18 80',note:''}
+    ]},
+    {id:'tbl',name:'GfA Berlin',kinder:[
+      {id:'t3',name:'Berlin-Lichtenberg',addr:'Berlin-Lichtenberg',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'Wisbyer Str. 16/17, 10439 Berlin · www.gfa-berlin.de'},
+      {id:'t4',name:'Berlin-Hohenschönh.',addr:'Berlin-Hohenschönhausen',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'}
+    ]},
+    {id:'tbb',name:'GfA Brandenburg',kinder:[
+      {id:'t5',name:'Elstal',addr:'Elstal, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
+      {id:'t6',name:'Falkensee',addr:'Falkensee, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
+      {id:'t7',name:'Friesack',addr:'Friesack, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
+      {id:'t8',name:'Ketzin',addr:'Ketzin, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
+      {id:'t9',name:'Lietzow',addr:'Lietzow, LK Rügen',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
+      {id:'t10',name:'Nauen',addr:'Nauen, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
+      {id:'t11',name:'Potsdam',addr:'Potsdam',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
+      {id:'t12',name:'Rathenow',addr:'Rathenow, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
+      {id:'t13',name:'Schorfheide',addr:'Schorfheide, LK Barnim',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
+      {id:'t14',name:'Wustermark',addr:'Wustermark, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'}
+    ]},
+    {id:'tsa',name:'Sachsen-Anhalt',kinder:[
+      {id:'t15',name:'Biederitz (TP)',addr:'Vechelder Weg 10, 39175 Biederitz',pdl:'Tagespflege im Wohnpark',rolle:'',tel:'039292 / 67 52 13',note:''}
+    ]}
+  ]},
+  {id:'therapie',name:'THERAPIE &\nGESUNDHEIT',icon:'⚕️',color:'#7b2d8b',light:'#eeddf5',angle:108,r:185,leitung:[],
+   gruppen:[
+    {id:'gm',name:'MVZ Mediplus',kinder:[{id:'g1',name:'Berlin',addr:'Berlin',pdl:'Allgemein- & Augenheilkunde',rolle:'Medizinisches Versorgungszentrum',tel:'030 / 39 60 05 10',note:''}]},
+    {id:'gl',name:'Therapielotsen',kinder:[
+      {id:'g2',name:'Berlin',addr:'Berlin',pdl:'Mediplus TUR GmbH',rolle:'Ergo-, Logo-, Physiotherapie',tel:'—',note:''},
+      {id:'g3',name:'Dortmund',addr:'Dortmund',pdl:'Mediplus TUR GmbH',rolle:'Ergo-, Logo-, Physiotherapie',tel:'—',note:''},
+      {id:'g4',name:'Leipzig',addr:'Leipzig',pdl:'Mediplus TUR GmbH',rolle:'Ergo-, Logo-, Physiotherapie',tel:'—',note:''}
+    ]}
+  ]},
+  {id:'kurse',name:'PFLEGE-\nKURSE',icon:'📚',color:'#8b6914',light:'#f5eacc',angle:180,r:178,leitung:[],
+   gruppen:[{id:'ka',name:'Kursangebote',kinder:[
+    {id:'k1',name:'Gruppenkurse §45',addr:'Köln & weitere',pdl:'Frank Lehmköster',rolle:'GL Köln',tel:'0221 / 28 58 18-0',note:'Kurse für pflegende Angehörige nach §45 SGB XI'},
+    {id:'k2',name:'Individuelle Schulungen',addr:'Alle Standorte',pdl:'Zentrale',rolle:'',tel:'030 / 39 60 05 10',note:''}
+   ]}]}
+];
+const svg=document.getElementById('map'),NS='http://www.w3.org/2000/svg',CX=530,CY=430;
+function el(t,a={},tx=''){const e=document.createElementNS(NS,t);for(const[k,v]of Object.entries(a))e.setAttribute(k,v);if(tx)e.textContent=tx;return e;}
+function px(cx,cy,d,r){const a=d*Math.PI/180;return{x:cx+r*Math.cos(a),y:cy+r*Math.sin(a)};}
+const df=el('defs'),f1=el('filter',{id:'sh',x:'-30%',y:'-30%',width:'160%',height:'160%'});
+f1.appendChild(el('feDropShadow',{dx:'0',dy:'3',stdDeviation:'7','flood-color':'#00000025'}));df.appendChild(f1);
+const f2=el('filter',{id:'shsm'});f2.appendChild(el('feDropShadow',{dx:'0',dy:'2',stdDeviation:'4','flood-color':'#0000001a'}));df.appendChild(f2);svg.appendChild(df);
+svg.appendChild(el('rect',{x:'-80',y:'-60',width:'1200',height:'960',fill:'#f2ede4'}));
+const lL=el('g'),gL=el('g'),kL=el('g'),bL=el('g');[lL,gL,kL,bL].forEach(l=>svg.appendChild(l));
+let S={ab:null,ag:null,ak:null};
+function gps(b){const n=b.gruppen.length,sp=Math.min(65,n*17),st=b.angle-sp/2,step=n>1?sp/(n-1):0;return b.gruppen.map((_,i)=>px(CX,CY,st+i*step,b.r+95));}
+function kps(b,gi){const g=b.gruppen[gi],n=g.kinder.length,sp=Math.min(80,n*13),ba=b.angle+(gi-(b.gruppen.length-1)/2)*(65/Math.max(b.gruppen.length-1,1)),st=ba-sp/2,step=n>1?sp/(n-1):0;return g.kinder.map((_,i)=>px(CX,CY,st+i*step,b.r+195));}
+function clr(l){while(l.firstChild)l.removeChild(l.firstChild);}
+function render(){
+  [lL,gL,kL,bL].forEach(clr);
+  const bp=B.map(b=>px(CX,CY,b.angle,b.r));
+  B.forEach((b,i)=>{const p=bp[i],on=S.ab===i;lL.appendChild(el('line',{x1:CX,y1:CY,x2:p.x,y2:p.y,stroke:b.color,'stroke-width':on?3:1.8,'stroke-dasharray':on?'none':'7,5',opacity:on?.7:.32}));});
+  if(S.ab!==null){
+    const b=B[S.ab],bpi=bp[S.ab],gpa=gps(b);
+    gpa.forEach((gp,gi)=>{
+      const sg=S.ag===gi;
+      lL.appendChild(el('line',{x1:bpi.x,y1:bpi.y,x2:gp.x,y2:gp.y,stroke:b.color,'stroke-width':sg?2.5:1.4,opacity:sg?.75:.45}));
+      if(sg)kps(b,gi).forEach(kp=>lL.appendChild(el('line',{x1:gp.x,y1:gp.y,x2:kp.x,y2:kp.y,stroke:b.color,'stroke-width':1.1,opacity:.4})));
+    });
+    if(S.ag!==null){
+      kps(b,S.ag).forEach((kp,ki)=>{
+        const k=b.gruppen[S.ag].kinder[ki],sel=S.ak===k.id,rw=65,rh=19,kg=el('g',{style:'cursor:pointer'});
+        kg.appendChild(el('rect',{x:kp.x-rw,y:kp.y-rh,width:rw*2,height:rh*2,rx:9,fill:sel?b.color:'#fff',stroke:b.color,'stroke-width':sel?0:1,filter:'url(#shsm)'}));
+        kg.appendChild(el('text',{x:kp.x,y:kp.y+4,'text-anchor':'middle',fill:sel?'#fff':b.color,'font-size':'10','font-weight':'700','font-family':'Source Sans 3,sans-serif'},k.name.length>22?k.name.slice(0,21)+'…':k.name));
+        kg.addEventListener('click',e=>{e.stopPropagation();S.ak=k.id;render();openP(b,k);});
+        kL.appendChild(kg);
+      });
+    }
+    gpa.forEach((gp,gi)=>{
+      const g=b.gruppen[gi],sel=S.ag===gi,rw=62,rh=19,gg=el('g',{style:'cursor:pointer'});
+      gg.appendChild(el('rect',{x:gp.x-rw,y:gp.y-rh,width:rw*2,height:rh*2,rx:9,fill:sel?b.color:b.light,stroke:b.color,'stroke-width':sel?0:1.2,filter:'url(#shsm)'}));
+      gg.appendChild(el('text',{x:gp.x,y:gp.y+4,'text-anchor':'middle',fill:sel?'#fff':b.color,'font-size':'10','font-weight':'700','font-family':'Source Sans 3,sans-serif'},g.name.length>18?g.name.slice(0,17)+'…':g.name));
+      gg.appendChild(el('circle',{cx:gp.x+rw-7,cy:gp.y-rh+7,r:9,fill:sel?'#fff':b.color,opacity:'.9'}));
+      gg.appendChild(el('text',{x:gp.x+rw-7,y:gp.y-rh+11,'text-anchor':'middle',fill:sel?b.color:'#fff','font-size':'8','font-weight':'800','font-family':'Source Sans 3,sans-serif'},String(g.kinder.length)));
+      gg.addEventListener('click',e=>{e.stopPropagation();S.ag=sel?null:gi;S.ak=null;if(sel)closP();render();});
+      gL.appendChild(gg);
+    });
+  }
+  B.forEach((b,i)=>{
+    const p=bp[i],on=S.ab===i,bg=el('g',{style:'cursor:pointer'});
+    bg.appendChild(el('circle',{cx:p.x,cy:p.y,r:50,fill:b.color,filter:'url(#sh)',stroke:on?'#fff':'none','stroke-width':on?3:0,opacity:S.ab!==null&&!on?.48:1}));
+    bg.appendChild(el('text',{x:p.x,y:p.y-15,'text-anchor':'middle','font-size':'18'},b.icon));
+    b.name.split('\n').forEach((ln,li,arr)=>{const yo=arr.length===1?5:li===0?1:14;bg.appendChild(el('text',{x:p.x,y:p.y+yo,'text-anchor':'middle',fill:'#fff','font-size':'9','font-weight':'700','font-family':'Source Sans 3,sans-serif','letter-spacing':'.4'},ln));});
+    const tot=b.gruppen.reduce((s,g)=>s+g.kinder.length,0);
+    bg.appendChild(el('circle',{cx:p.x+35,cy:p.y-35,r:12,fill:'#fff',opacity:'.9'}));
+    bg.appendChild(el('text',{x:p.x+35,y:p.y-31,'text-anchor':'middle',fill:b.color,'font-size':'9','font-weight':'800','font-family':'Source Sans 3,sans-serif'},String(tot)));
+    bg.addEventListener('click',e=>{e.stopPropagation();if(S.ab===i){S={ab:null,ag:null,ak:null};closP();}else{S={ab:i,ag:null,ak:null};closP();}render();document.getElementById('hint').classList.toggle('hidden',S.ab!==null);});
+    bL.appendChild(bg);
+  });
+  const cg=el('g');
+  cg.appendChild(el('circle',{cx:CX,cy:CY,r:76,fill:'#1a3a5c',filter:'url(#sh)'}));
+  cg.appendChild(el('circle',{cx:CX,cy:CY,r:72,fill:'none',stroke:'#fff','stroke-width':'1.5',opacity:'.18'}));
+  [{t:'PFLEGE',y:-12},{t:'WERK',y:8}].forEach(({t,y})=>cg.appendChild(el('text',{x:CX,y:CY+y,'text-anchor':'middle',fill:'#fff','font-size':'15','font-weight':'800','font-family':'Playfair Display,serif','letter-spacing':'2'},t)));
+  cg.appendChild(el('text',{x:CX,y:CY+26,'text-anchor':'middle',fill:'#aaccee','font-size':'8','font-family':'Source Sans 3,sans-serif','letter-spacing':'1'},'Wir helfen pflegen!'));
+  bL.appendChild(cg);
+}
+const pnl=document.getElementById('panel'),mw=document.getElementById('mw');
+function openP(branch,item){
+  document.getElementById('ph').style.background=branch.color;
+  document.getElementById('pb').textContent=branch.icon+' '+branch.name.replace('\n',' ');
+  document.getElementById('pn').textContent=item.name;
+  const bs=document.getElementById('bs');
+  if(branch.leitung?.length){bs.style.display='block';bs.style.background=branch.light;document.getElementById('bsc').innerHTML=branch.leitung.map(l=>`<div style="margin-bottom:4px"><span style="font-size:12px;font-weight:700;color:${branch.color}">${l.name}</span><div style="font-size:11px;color:#666">${l.rolle}</div><div style="font-size:11px">${l.tel}</div></div>`).join('');}else{bs.style.display='none';}
+  document.getElementById('da').textContent=item.addr;
+  document.getElementById('dp').textContent=item.pdl;document.getElementById('dp').style.color=branch.color;
+  document.getElementById('dro').textContent=item.rolle||'';
+  document.getElementById('dt').textContent=item.tel;document.getElementById('dt').style.color=branch.color;
+  const nr=document.getElementById('nr');
+  if(item.note){nr.style.display='block';document.getElementById('dn').textContent=item.note;}else{nr.style.display='none';}
+  pnl.classList.add('open');mw.classList.add('po');
+}
+function closP(){pnl.classList.remove('open');mw.classList.remove('po');S.ak=null;}
+document.getElementById('pc').addEventListener('click',()=>{closP();render();});
+svg.addEventListener('click',()=>{if(S.ab!==null){S={ab:null,ag:null,ak:null};closP();render();document.getElementById('hint').classList.remove('hidden');}});
+render();
+</script>
+</body>
+</html>
