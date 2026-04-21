@@ -9,25 +9,18 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
   --bg:#f2ede4;--ctr:#1a3a5c;--txt:#1a2a3a;--mut:#7a8a9a;
-  --sb:240px;--hh:52px;--pw:360px;
+  --sb:240px;--hh:50px;
   --amb:#1a6fa8;--bw:#1a7b5e;--tp:#b5600d;--th:#7b2d8b;--ku:#8b6914;
   --red:#c0392b;--ora:#e67e22;--grn:#1a7b5e
 }
-*{box-sizing:border-box}
 body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--txt);height:100vh;overflow:hidden;display:flex;flex-direction:column}
-
-/* ── HEADER ── */
 #hdr{background:var(--ctr);color:#fff;height:var(--hh);display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;box-shadow:0 2px 14px rgba(0,0,0,.28);z-index:200}
 #hdr .logo{font-family:'Playfair Display',serif;font-size:17px;letter-spacing:1.5px;white-space:nowrap}
 #hdr .logo span{opacity:.5;font-size:9px;margin-left:8px;letter-spacing:1px;text-transform:uppercase}
-#hdr .gf{margin-left:auto;font-size:9.5px;opacity:.65;text-align:right;line-height:1.45;display:none}
+#hdr .gf{margin-left:auto;font-size:9.5px;opacity:.65;text-align:right;line-height:1.45}
 #hdr .stamp{font-size:9px;opacity:.38;margin-left:10px;white-space:nowrap;line-height:1.5}
 #menu-btn{display:none;background:rgba(255,255,255,.15);border:none;color:#fff;font-size:20px;cursor:pointer;padding:6px 10px;border-radius:8px;margin-left:auto;line-height:1}
-
-/* ── APP ── */
 #app{flex:1;display:flex;overflow:hidden;position:relative}
-
-/* ── SIDEBAR ── */
 #sb{width:var(--sb);background:#1e2d40;display:flex;flex-direction:column;flex-shrink:0;overflow-y:auto;z-index:150;transition:transform .25s ease}
 .sbs{padding:10px 0 3px;border-bottom:1px solid rgba(255,255,255,.06)}
 .sbl{font-size:9px;text-transform:uppercase;letter-spacing:1.4px;color:rgba(255,255,255,.28);padding:0 14px 5px;font-weight:700}
@@ -40,51 +33,46 @@ body{font-family:'Source Sans 3',sans-serif;background:var(--bg);color:var(--txt
 .ni.sub{padding-left:26px;font-size:12px}
 #sbf{margin-top:auto;padding:10px 14px;border-top:1px solid rgba(255,255,255,.07);font-size:10px;color:rgba(255,255,255,.25);line-height:1.6}
 #sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:140}
-
-/* ── CONTENT ── */
 #cnt{flex:1;overflow:hidden;display:flex;flex-direction:column;min-width:0}
 .pg{display:none;flex:1;overflow:hidden;flex-direction:column}
 .pg.active{display:flex}
-
-/* ── MINDMAP ── */
+/* MINDMAP */
 #pg-mm{position:relative;overflow:hidden}
 #mw{flex:1;position:relative;overflow:hidden;transition:margin-right .3s}
-#mw.po{margin-right:var(--pw)}
 svg#map{width:100%;height:100%;display:block}
-#panel{position:absolute;top:0;right:0;width:var(--pw);height:100%;background:#fff;box-shadow:-6px 0 30px rgba(0,0,0,.12);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s;z-index:50}
+#panel{position:absolute;top:0;right:0;width:360px;height:100%;background:#fff;box-shadow:-6px 0 30px rgba(0,0,0,.12);display:flex;flex-direction:column;transform:translateX(100%);transition:transform .3s;z-index:50}
 #panel.open{transform:translateX(0)}
+#mw.po{margin-right:360px}
 #ph{padding:13px 16px 11px;color:#fff;flex-shrink:0;position:relative}
 #ph .bl{font-size:10px;letter-spacing:1px;text-transform:uppercase;opacity:.7;margin-bottom:3px}
 #ph .in{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;line-height:1.3}
 #pc{position:absolute;top:11px;right:13px;background:rgba(255,255,255,.18);border:none;color:#fff;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:16px;line-height:26px;text-align:center}
 .xs{padding:7px 14px;border-bottom:1px solid #ede8e0;flex-shrink:0}
 .xs .sl{font-size:9px;text-transform:uppercase;letter-spacing:.7px;color:var(--mut);margin-bottom:2px}
-.xs .sn{font-size:11.5px;font-weight:700}
-.xs .st{font-size:11px;color:#444}
+.xs .sn{font-size:11.5px;font-weight:700}.xs .st{font-size:11px;color:#444}
 #pb{flex:1;overflow-y:auto;padding:12px 14px}
 .dr{margin-bottom:12px}
 .dl{font-size:9px;text-transform:uppercase;letter-spacing:1px;font-weight:700;border-bottom:1px solid rgba(0,0,0,.07);padding-bottom:2px;margin-bottom:4px}
-.dv{font-size:12.5px;line-height:1.5}.dv.b{font-weight:700}.dv.t{font-weight:700;font-size:13px}.dv.s{font-size:11px;color:#666;margin-top:2px}
-.dv.n{font-size:11px;color:#888;background:#f5f0e8;border-radius:6px;padding:6px 9px;margin-top:3px;line-height:1.5}
-#hint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:rgba(26,42,60,.8);color:#fff;font-size:11px;padding:6px 14px;border-radius:20px;pointer-events:none;transition:opacity .3s;white-space:nowrap;max-width:90%;text-align:center}
+.dv{font-size:12.5px;line-height:1.5}.dv.b{font-weight:700}.dv.t{font-weight:700;font-size:13px}
+.dv.s{font-size:11px;color:#666;margin-top:2px}.dv.n{font-size:11px;color:#888;background:#f5f0e8;border-radius:6px;padding:6px 9px;margin-top:3px;line-height:1.5}
+#hint{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);background:rgba(26,42,60,.8);color:#fff;font-size:11px;padding:6px 14px;border-radius:20px;pointer-events:none;transition:opacity .3s;white-space:nowrap}
 #hint.hidden{opacity:0}
 #leg{position:absolute;bottom:12px;left:10px;display:flex;gap:6px;flex-wrap:wrap;pointer-events:none}
 .li2{display:flex;align-items:center;gap:4px;font-size:9.5px;color:#666;background:rgba(255,255,255,.8);padding:2px 7px;border-radius:12px}
 .ld{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-
-/* ── ARTICLE PAGES ── */
+/* ARTICLE PAGES */
 .ap{overflow-y:auto;background:var(--bg)}
 .aw{max-width:1040px;margin:0 auto;padding:20px 22px}
 .ah{margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #ddd5c8}
 .ah h1{font-family:'Playfair Display',serif;font-size:21px;color:var(--ctr);margin-bottom:3px}
 .ah p{font-size:11px;color:var(--mut)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;margin-bottom:20px}
 .card{background:#fff;border-radius:10px;box-shadow:0 2px 9px rgba(0,0,0,.07);overflow:hidden;display:flex;flex-direction:column;transition:transform .13s,box-shadow .13s}
 .card:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(0,0,0,.11)}
 .ctag{display:flex;align-items:center;gap:6px;padding:9px 12px 0}
 .ctag .dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
-.ctag .lbl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px}
-.ctag .dt{margin-left:auto;font-size:9.5px;color:var(--mut)}
+.clbl{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+.cdt{margin-left:auto;font-size:9.5px;color:var(--mut)}
 .cbody{padding:7px 12px 12px;flex:1;display:flex;flex-direction:column}
 .cbody h3{font-size:13px;font-weight:700;line-height:1.35;margin-bottom:5px}
 .cbody p{font-size:11.5px;color:#555;line-height:1.6;flex:1}
@@ -97,12 +85,17 @@ svg#map{width:100%;height:100%;display:block}
 .ftag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;opacity:.6;margin-bottom:5px}
 .feat h2{font-family:'Playfair Display',serif;font-size:17px;line-height:1.3;margin-bottom:7px}
 .feat p{font-size:12px;opacity:.8;line-height:1.6;max-width:620px}
-.fmeta{margin-top:10px;display:flex;align-items:center;gap:10px;font-size:10.5px;opacity:.5;flex-wrap:wrap}
+.fmeta{margin-top:10px;display:flex;align-items:center;gap:10px;font-size:10.5px;opacity:.55;flex-wrap:wrap}
 .fmeta a{color:rgba(255,255,255,.85);text-decoration:none}.fmeta a:hover{color:#fff;text-decoration:underline}
-.frbtn{background:rgba(255,255,255,.18);border:none;color:#fff;border-radius:14px;padding:4px 12px;font-size:10.5px;font-weight:600;cursor:pointer;font-family:'Source Sans 3',sans-serif;transition:background .13s}
-.frbtn:hover{background:rgba(255,255,255,.32)}
-
-/* ── RECHT HUB ── */
+.frbtn{background:rgba(255,255,255,.2);border:none;color:#fff;border-radius:14px;padding:4px 12px;font-size:10.5px;font-weight:600;cursor:pointer;font-family:'Source Sans 3',sans-serif;transition:background .13s}
+.frbtn:hover{background:rgba(255,255,255,.35)}
+/* PAGINATION */
+.pagination{display:flex;align-items:center;gap:6px;margin-top:6px;margin-bottom:20px;flex-wrap:wrap}
+.pgbtn{padding:5px 12px;border-radius:20px;border:1.5px solid #ccc;background:#fff;font-size:12px;font-weight:600;cursor:pointer;transition:all .13s;color:#555;font-family:'Source Sans 3',sans-serif}
+.pgbtn:hover{border-color:var(--amb);color:var(--amb)}
+.pgbtn.active{background:var(--ctr);color:#fff;border-color:var(--ctr)}
+.pginfo{font-size:11px;color:var(--mut);margin-left:6px}
+/* RECHT HUB */
 #pg-recht{overflow-y:auto;background:var(--bg)}
 .rh{max-width:1040px;margin:0 auto;padding:20px 22px}
 .rh h1{font-family:'Playfair Display',serif;font-size:21px;color:var(--ctr);margin-bottom:4px}
@@ -110,12 +103,9 @@ svg#map{width:100%;height:100%;display:block}
 .rcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:13px}
 .rcard{background:#fff;border-radius:10px;padding:16px;cursor:pointer;box-shadow:0 2px 9px rgba(0,0,0,.07);transition:all .14s;border-left:4px solid transparent;display:flex;flex-direction:column;gap:5px}
 .rcard:hover{transform:translateY(-2px);box-shadow:0 5px 18px rgba(0,0,0,.11)}
-.rcard .ri{font-size:22px}
-.rcard h3{font-size:13.5px;font-weight:700}
-.rcard p{font-size:11px;color:var(--mut);line-height:1.5}
-.rcard .rc{font-size:11px;font-weight:700;margin-top:3px}
-
-/* ── READER MODAL ── */
+.rcard .ri{font-size:22px}.rcard h3{font-size:13.5px;font-weight:700}
+.rcard p{font-size:11px;color:var(--mut);line-height:1.5}.rcard .rc{font-size:11px;font-weight:700;margin-top:3px}
+/* READER */
 #reader{position:fixed;inset:0;background:rgba(0,0,0,.52);z-index:999;display:none;align-items:center;justify-content:center;padding:16px}
 #reader.show{display:flex}
 #rbox{background:#fff;border-radius:14px;width:100%;max-width:660px;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 18px 55px rgba(0,0,0,.28);overflow:hidden}
@@ -128,21 +118,20 @@ svg#map{width:100%;height:100%;display:block}
 .rtab.active{background:var(--ctr);color:#fff;border-color:var(--ctr)}
 #rtitle{font-family:'Playfair Display',serif;font-size:16px;color:var(--ctr);margin-bottom:9px;line-height:1.4}
 #rtext{font-size:12.5px;color:#444;line-height:1.7}
-#rsum-area{display:none}
 #rsum-lbl{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--mut);font-weight:700;margin-bottom:7px}
-#rsum{font-size:13px;color:var(--txt);line-height:1.75}
+#rsum{font-size:13px;color:var(--txt);line-height:1.75;white-space:pre-wrap}
 #rftr{padding:11px 18px;border-top:1px solid #ede8e0;background:#f8f5ef;display:flex;align-items:center;gap:8px;flex-wrap:wrap;flex-shrink:0}
-#rstatus{font-size:11px;color:var(--mut);flex:1;min-width:120px}
+#rstatus{font-size:11px;color:var(--mut);flex:1;min-width:100px}
 .rplay{display:flex;align-items:center;gap:5px;background:var(--ctr);color:#fff;border:none;border-radius:20px;padding:7px 14px;font-size:11.5px;font-weight:600;cursor:pointer;font-family:'Source Sans 3',sans-serif;transition:background .13s;white-space:nowrap}
 .rplay:hover{background:var(--amb)}.rplay.stop{background:var(--red)}
-.ail{display:flex;align-items:center;gap:6px;color:var(--mut);font-size:12px;font-style:italic}
+.rplay2{background:#555}.rplay2:hover{background:#333}
+.ail{display:flex;align-items:center;gap:6px;color:var(--mut);font-size:12px;font-style:italic;padding:8px 0}
 .ald{width:6px;height:6px;border-radius:50%;background:var(--amb);animation:pp .9s infinite alternate}
 .ald:nth-child(2){animation-delay:.3s}.ald:nth-child(3){animation-delay:.6s}
 @keyframes pp{from{opacity:.3}to{opacity:1}}
-
-/* ── MOBILE ── */
+/* MOBILE */
 @media(max-width:768px){
-  :root{--hh:50px;--sb:75vw;--pw:100vw}
+  :root{--hh:50px;--sb:80vw}
   #menu-btn{display:flex;align-items:center;justify-content:center}
   #hdr .gf{display:none}
   #hdr .stamp{display:none}
@@ -151,8 +140,6 @@ svg#map{width:100%;height:100%;display:block}
   #sb.open{transform:translateX(0)}
   #sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:290}
   #sb-overlay.open{display:block}
-  #app{position:relative}
-  #cnt{width:100%}
   #mw.po{margin-right:0}
   #panel{position:fixed;width:100vw;height:calc(100vh - var(--hh));top:var(--hh);z-index:200}
   .aw{padding:14px 12px}
@@ -160,11 +147,9 @@ svg#map{width:100%;height:100%;display:block}
   .feat{padding:14px 15px;margin-bottom:14px}
   .feat h2{font-size:15px}
   .feat p{font-size:11.5px}
-  .fmeta{flex-wrap:wrap;gap:6px;opacity:.65}
-  .frbtn{font-size:10px;padding:4px 10px}
+  .fmeta{flex-wrap:wrap;gap:6px}
   .rh{padding:14px 12px}
   .rcards{grid-template-columns:1fr 1fr;gap:10px}
-  .rcard{padding:13px}
   #leg{display:none}
   #hint{font-size:10px;padding:5px 12px;bottom:10px}
   #rftr{gap:6px;padding:10px 14px}
@@ -180,42 +165,40 @@ svg#map{width:100%;height:100%;display:block}
   .ah h1{font-size:19px}
   .cbody h3{font-size:13px}
   .ni{padding:10px 14px;font-size:13.5px}
+  .pagination{gap:4px}
+  .pgbtn{padding:4px 10px;font-size:11px}
 }
 @media(max-width:420px){
   .rcards{grid-template-columns:1fr}
-  .feat h2{font-size:14px}
-  :root{--sb:85vw}
+  :root{--sb:90vw}
 }
 </style>
 </head>
 <body>
-
 <div id="hdr">
   <button id="menu-btn" onclick="toggleMenu()">☰</button>
   <div class="logo">PFLEGEWERK <span>Portal</span></div>
   <div class="gf">Dr. Georgios Giannakopoulos &amp; Anastasia Giannakopoulos · 030 / 39 60 05 10</div>
-  <div class="stamp">Stand:<br>20.04.2026</div>
+  <div class="stamp">Stand:<br>21.04.2026</div>
 </div>
 <div id="sb-overlay" onclick="closeMenu()"></div>
-
 <div id="app">
 <nav id="sb">
   <div class="sbs"><div class="sbl">Übersicht</div>
     <div class="ni active" data-pg="mm"><span class="ico">🗺️</span>Einrichtungen</div>
   </div>
   <div class="sbs"><div class="sbl">Informationen</div>
-    <div class="ni" data-pg="news"><span class="ico">📰</span>News &amp; Presse<span class="bdg">5</span></div>
-    <div class="ni" data-pg="recht"><span class="ico">⚖️</span>Rechtliches<span class="bdg o">9</span></div>
+    <div class="ni" data-pg="news"><span class="ico">📰</span>News &amp; Presse<span class="bdg">9</span></div>
+    <div class="ni" data-pg="recht"><span class="ico">⚖️</span>Rechtliches<span class="bdg o">22</span></div>
   </div>
   <div class="sbs"><div class="sbl">Rechtsbereiche</div>
-    <div class="ni sub" data-pg="ar"><span class="ico">👔</span>Arbeitsrecht<span class="bdg b">3</span></div>
-    <div class="ni sub" data-pg="ir"><span class="ico">📉</span>Insolvenzrecht<span class="bdg b">2</span></div>
-    <div class="ni sub" data-pg="mr"><span class="ico">🏘️</span>Mietrecht<span class="bdg b">2</span></div>
-    <div class="ni sub" data-pg="pr"><span class="ico">🩺</span>Recht &amp; Pflege<span class="bdg g">2</span></div>
+    <div class="ni sub" data-pg="ar"><span class="ico">👔</span>Arbeitsrecht<span class="bdg b">9</span></div>
+    <div class="ni sub" data-pg="ir"><span class="ico">📉</span>Insolvenzrecht<span class="bdg b">4</span></div>
+    <div class="ni sub" data-pg="mr"><span class="ico">🏘️</span>Mietrecht<span class="bdg b">4</span></div>
+    <div class="ni sub" data-pg="pr"><span class="ico">🩺</span>Recht &amp; Pflege<span class="bdg g">5</span></div>
   </div>
-  <div id="sbf">Pflegewerk Gruppe · Stand 20.04.2026</div>
+  <div id="sbf">Pflegewerk Gruppe · Stand 21.04.2026</div>
 </nav>
-
 <div id="cnt">
 
 <!-- MINDMAP -->
@@ -247,98 +230,189 @@ svg#map{width:100%;height:100%;display:block}
 <!-- NEWS -->
 <div class="pg ap" id="pg-news">
   <div class="aw">
-    <div class="ah"><h1>📰 News &amp; Presse</h1><p>Aktuelle Berichte über Pflegewerk · Stand: 20.04.2026</p></div>
+    <div class="ah"><h1>📰 News &amp; Presse</h1><p>Aktuelle Berichte über Pflegewerk · Stand: 21.04.2026</p></div>
     <div class="feat">
   <div class="ftag">🔥 Aktuellste Meldung · Pflegewerk direkt betroffen</div>
-  <h2>Pflegewerk Brandenburg GmbH meldet Insolvenz an</h2><p>Das Amtsgericht Charlottenburg bestellte Martin Herrmann zum vorläufigen Insolvenzverwalter. Betrieb läuft uneingeschränkt weiter.</p>
+  <h2>Pflegewerk Brandenburg GmbH meldet Insolvenz an</h2>
+  <p>Das Amtsgericht Charlottenburg bestellte Martin Herrmann zum vorläufigen Insolvenzverwalter. Betroffen: zwei Pflegedienste in Schorfheide und Schlieben. Betrieb läuft uneingeschränkt weiter.</p>
   <div class="fmeta">
     <span>Jan. 2026</span>
     <span><a href="https://www.pflegemarkt.com/news/veraenderungen/pflegewerk-berlin-insolvent/" target="_blank">pflegemarkt.com</a></span>
-    <button class="frbtn" onclick='openReader("Pflegewerk Brandenburg GmbH meldet Insolvenz an","Pflegewerk Brandenburg GmbH meldet Insolvenz an. Das Amtsgericht Charlottenburg bestellte Martin Herrmann zum vorläufigen Insolvenzverwalter. Betrieb läuft uneingeschränkt weiter.")'>🔊 KI vorlesen</button>
-  </div></div>
-    <div class="grid"><div class="card">
-  <div class="ctag"><div class="dot" style="background:#c0392b"></div>
-    <span class="lbl" style="color:#c0392b">⚠️ pflegewerk</span>
-    <span class="dt">Jan. 2026</span></div>
+    <button class="frbtn" onclick='openReader("Pflegewerk Brandenburg GmbH meldet Insolvenz an","Pflegewerk Brandenburg GmbH meldet Insolvenz an. Das Amtsgericht Charlottenburg bestellte Martin Herrmann zum vorläufigen Insolvenzverwalter. Betroffen: zwei Pflegedienste in Schorfheide und Schlieben. Betrieb läuft uneingeschränkt weiter.","~30 Sek.")'>🔊 KI vorlesen</button>
+  </div>
+</div>
+<div class="page-articles" id="news-p0" style="display:block">
+<div class="grid"><div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#c0392b"></div>
+    <span class="clbl" style="color:#c0392b">⚠️ pflegewerk</span>
+    <span class="cdt">Jan. 2026</span>
+  </div>
   <div class="cbody">
-    <h3>Pflegewerk Brandenburg GmbH meldet Insolvenz an</h3><p>Das Amtsgericht Charlottenburg bestellte Martin Herrmann zum vorläufigen Insolvenzverwalter. Betrieb läuft uneingeschränkt weiter.</p>
+    <h3>Pflegewerk Brandenburg GmbH meldet Insolvenz an</h3>
+    <p>Das Amtsgericht Charlottenburg bestellte Martin Herrmann zum vorläufigen Insolvenzverwalter. Betroffen: zwei Pflegedienste in Schorfheide und Schlieben. Betrieb läuft uneingeschränkt weiter.</p>
     <div class="cmeta">
       <span>📄 <a href="https://www.pflegemarkt.com/news/veraenderungen/pflegewerk-berlin-insolvent/" target="_blank">pflegemarkt.com</a></span>
-      <button class="rbtn" onclick='openReader("Pflegewerk Brandenburg GmbH meldet Insolvenz an","Pflegewerk Brandenburg GmbH meldet Insolvenz an. Das Amtsgericht Charlottenburg bestellte Martin Herrmann zum vorläufigen Insolvenzverwalter. Betrieb läuft uneingeschränkt weiter.")'>🔊 KI vorlesen</button>
+      <button class="rbtn" onclick='openReader("Pflegewerk Brandenburg GmbH meldet Insolvenz an","Pflegewerk Brandenburg GmbH meldet Insolvenz an. Das Amtsgericht Charlottenburg bestellte Martin Herrmann zum vorläufigen Insolvenzverwalter. Betroffen: zwei Pflegedienste in Schorfheide und Schlieben. Betrieb läuft uneingeschränkt weiter.","~30 Sek.")'>🔊 KI vorlesen</button>
     </div>
-  </div></div>
+  </div>
+</div>
 <div class="card">
-  <div class="ctag"><div class="dot" style="background:#c0392b"></div>
-    <span class="lbl" style="color:#c0392b">⚠️ pflegewerk</span>
-    <span class="dt">Okt. 2025</span></div>
+  <div class="ctag">
+    <div class="dot" style="background:#c0392b"></div>
+    <span class="clbl" style="color:#c0392b">⚠️ pflegewerk</span>
+    <span class="cdt">Okt. 2025</span>
+  </div>
   <div class="cbody">
-    <h3>Pflegewerk Berlin GmbH: Insolvenzantrag</h3><p>PLUTA-Insolvenzverwalter Frank Brachwitz sichert die fünf Berliner Sozialstationen.</p>
+    <h3>Pflegewerk Berlin GmbH: Insolvenzantrag – 420 Mitarbeiter</h3>
+    <p>PLUTA-Insolvenzverwalter Frank Brachwitz sichert die fünf Berliner Sozialstationen in Friedrichshain, Neukölln, Reinickendorf, Tempelhof und Wedding. Löhne über Insolvenzgeldvorfinanzierung gesichert.</p>
     <div class="cmeta">
-      <span>📄 <a href="https://www.unternehmeredition.de/pflegewerk-berlin-stellt-insolvenzantrag/" target="_blank">PLUTA</a></span>
-      <button class="rbtn" onclick='openReader("Pflegewerk Berlin GmbH: Insolvenzantrag","Pflegewerk Berlin GmbH: Insolvenzantrag. PLUTA-Insolvenzverwalter Frank Brachwitz sichert die fünf Berliner Sozialstationen.")'>🔊 KI vorlesen</button>
+      <span>📄 <a href="https://www.unternehmeredition.de/pflegewerk-berlin-stellt-insolvenzantrag/" target="_blank">PLUTA / Unternehmeredition</a></span>
+      <button class="rbtn" onclick='openReader("Pflegewerk Berlin GmbH: Insolvenzantrag – 420 Mitarbeiter","Pflegewerk Berlin GmbH: Insolvenzantrag – 420 Mitarbeiter. PLUTA-Insolvenzverwalter Frank Brachwitz sichert die fünf Berliner Sozialstationen in Friedrichshain, Neukölln, Reinickendorf, Tempelhof und Wedding. Löhne über Insolvenzgeldvorfinanzierung gesichert.","~30 Sek.")'>🔊 KI vorlesen</button>
     </div>
-  </div></div>
+  </div>
+</div>
 <div class="card">
-  <div class="ctag"><div class="dot" style="background:#1a7b5e"></div>
-    <span class="lbl" style="color:#1a7b5e">✅ pflegewerk</span>
-    <span class="dt">Juni 2025</span></div>
+  <div class="ctag">
+    <div class="dot" style="background:#1a7b5e"></div>
+    <span class="clbl" style="color:#1a7b5e">✅ pflegewerk</span>
+    <span class="cdt">Juni 2025</span>
+  </div>
   <div class="cbody">
-    <h3>Pflegewerk übernimmt alle Kenbi-Standorte</h3><p>470 Beschäftigte übernommen. Ambulante Pflege +50%, Tagespflegeplätze +347%.</p>
+    <h3>Pflegewerk übernimmt alle Kenbi-Standorte in Brandenburg und Sachsen-Anhalt</h3>
+    <p>7 Betreute Wohnanlagen, 16 Pflegedienste, 13 Tagespflegen, 16 Wohngruppen, 2 Pflegestützpunkte. 470 Beschäftigte übernommen. Ambulante Pflege +50%, Tagespflegeplätze +347%.</p>
     <div class="cmeta">
-      <span>📄 <a href="https://www.altenheim.net/insolvenz-pflegewerk-gruppe-uebernimmt-einrichtungen-von-kenbi/" target="_blank">Streitbörger</a></span>
-      <button class="rbtn" onclick='openReader("Pflegewerk übernimmt alle Kenbi-Standorte","Pflegewerk übernimmt alle Kenbi-Standorte. 470 Beschäftigte übernommen. Ambulante Pflege +50%, Tagespflegeplätze +347%.")'>🔊 KI vorlesen</button>
+      <span>📄 <a href="https://www.altenheim.net/insolvenz-pflegewerk-gruppe-uebernimmt-einrichtungen-von-kenbi/" target="_blank">Streitbörger / Altenheim.net</a></span>
+      <button class="rbtn" onclick='openReader("Pflegewerk übernimmt alle Kenbi-Standorte in Brandenburg und Sachsen-Anhalt","Pflegewerk übernimmt alle Kenbi-Standorte in Brandenburg und Sachsen-Anhalt. 7 Betreute Wohnanlagen, 16 Pflegedienste, 13 Tagespflegen, 16 Wohngruppen, 2 Pflegestützpunkte. 470 Beschäftigte übernommen. Ambulante Pflege +50%, Tagespflegeplätze +347%.","~30 Sek.")'>🔊 KI vorlesen</button>
     </div>
-  </div></div>
+  </div>
+</div>
 <div class="card">
-  <div class="ctag"><div class="dot" style="background:#1a6fa8"></div>
-    <span class="lbl" style="color:#1a6fa8">📜 branche</span>
-    <span class="dt">Jan. 2026</span></div>
+  <div class="ctag">
+    <div class="dot" style="background:#1a7b5e"></div>
+    <span class="clbl" style="color:#1a7b5e">🏆 pflegewerk</span>
+    <span class="cdt">2025</span>
+  </div>
   <div class="cbody">
-    <h3>BEEP-Gesetz in Kraft</h3><p>Seit 1. Januar 2026 dürfen Pflegefachpersonen eigenverantwortlich Heilkundeleistungen erbringen.</p>
+    <h3>Pflegewerk unter den 15 größten ambulanten Pflegeanbietern Deutschlands</h3>
+    <p>Die Pflegewerk-Gruppe gehört zu den 15 größten Anbietern für ambulante Pflege in Deutschland. Bundesweit rund 1.500 Beschäftigte. Gegründet 1988, heute Familienunternehmen der Giannakopoulos.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.carevor9.de/care-inside/pflegewerk-schluckt-insolvente-kenbi-standorte-im-osten" target="_blank">CareInside</a></span>
+      <button class="rbtn" onclick='openReader("Pflegewerk unter den 15 größten ambulanten Pflegeanbietern Deutschlands","Pflegewerk unter den 15 größten ambulanten Pflegeanbietern Deutschlands. Die Pflegewerk-Gruppe gehört zu den 15 größten Anbietern für ambulante Pflege in Deutschland. Bundesweit rund 1.500 Beschäftigte. Gegründet 1988, heute Familienunternehmen der Giannakopoulos.","~30 Sek.")'>🔊 KI vorlesen</button>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#1a6fa8"></div>
+    <span class="clbl" style="color:#1a6fa8">📜 branche</span>
+    <span class="cdt">Jan. 2026</span>
+  </div>
+  <div class="cbody">
+    <h3>BEEP-Gesetz in Kraft: Pflegefachpersonen erhalten neue Heilkundebefugnisse</h3>
+    <p>Seit 1. Januar 2026 dürfen Pflegefachpersonen eigenverantwortlich Heilkundeleistungen erbringen. Beratungsbesuche nach §37.3 werden reduziert, Verhinderungspflege-Frist auf 1 Jahr verkürzt.</p>
     <div class="cmeta">
       <span>📄 <a href="https://www.bundesgesundheitsministerium.de/" target="_blank">BMG</a></span>
-      <button class="rbtn" onclick='openReader("BEEP-Gesetz in Kraft","BEEP-Gesetz in Kraft. Seit 1. Januar 2026 dürfen Pflegefachpersonen eigenverantwortlich Heilkundeleistungen erbringen.")'>🔊 KI vorlesen</button>
+      <button class="rbtn" onclick='openReader("BEEP-Gesetz in Kraft: Pflegefachpersonen erhalten neue Heilkundebefugnisse","BEEP-Gesetz in Kraft: Pflegefachpersonen erhalten neue Heilkundebefugnisse. Seit 1. Januar 2026 dürfen Pflegefachpersonen eigenverantwortlich Heilkundeleistungen erbringen. Beratungsbesuche nach §37.3 werden reduziert, Verhinderungspflege-Frist auf 1 Jahr verkürzt.","~30 Sek.")'>🔊 KI vorlesen</button>
     </div>
-  </div></div>
+  </div>
+</div>
 <div class="card">
-  <div class="ctag"><div class="dot" style="background:#1a6fa8"></div>
-    <span class="lbl" style="color:#1a6fa8">📈 branche</span>
-    <span class="dt">März 2026</span></div>
+  <div class="ctag">
+    <div class="dot" style="background:#1a6fa8"></div>
+    <span class="clbl" style="color:#1a6fa8">📊 branche</span>
+    <span class="cdt">März 2026</span>
+  </div>
   <div class="cbody">
-    <h3>64.300 neue Pflegeazubis 2025</h3><p>Ausbildungsrekord. +8% gegenüber Vorjahr.</p>
+    <h3>Berliner Pflegebeauftragte veröffentlicht Monitoringbericht 2025</h3>
+    <p>Prof. Dr. Meyer-Rötz legte am 31. März 2026 ihren Bericht vor. Basis: rund 200 Einzelfälle. Zeigt strukturelle Probleme in der Berliner Pflege auf.</p>
     <div class="cmeta">
-      <span>📄 <a href="https://deutscher-pflegerat.de/" target="_blank">Pflegerat</a></span>
-      <button class="rbtn" onclick='openReader("64.300 neue Pflegeazubis 2025","64.300 neue Pflegeazubis 2025. Ausbildungsrekord. +8% gegenüber Vorjahr.")'>🔊 KI vorlesen</button>
+      <span>📄 <a href="https://www.berlin.de/lb/pflege/" target="_blank">Berlin.de</a></span>
+      <button class="rbtn" onclick='openReader("Berliner Pflegebeauftragte veröffentlicht Monitoringbericht 2025","Berliner Pflegebeauftragte veröffentlicht Monitoringbericht 2025. Prof. Dr. Meyer-Rötz legte am 31. März 2026 ihren Bericht vor. Basis: rund 200 Einzelfälle. Zeigt strukturelle Probleme in der Berliner Pflege auf.","~30 Sek.")'>🔊 KI vorlesen</button>
     </div>
-  </div></div></div>
+  </div>
+</div>
+<div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#1a6fa8"></div>
+    <span class="clbl" style="color:#1a6fa8">📈 branche</span>
+    <span class="cdt">März 2026</span>
+  </div>
+  <div class="cbody">
+    <h3>Ausbildungsrekord: 64.300 neue Pflegeazubis 2025 – +8%</h3>
+    <p>Das Statistische Bundesamt meldet 64.300 neue Ausbildungsverträge zur Pflegefachperson – so viele wie nie zuvor. Insgesamt 158.000 Menschen in der Ausbildung.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://deutscher-pflegerat.de/" target="_blank">Deutscher Pflegerat</a></span>
+      <button class="rbtn" onclick='openReader("Ausbildungsrekord: 64.300 neue Pflegeazubis 2025 – +8%","Ausbildungsrekord: 64.300 neue Pflegeazubis 2025 – +8%. Das Statistische Bundesamt meldet 64.300 neue Ausbildungsverträge zur Pflegefachperson – so viele wie nie zuvor. Insgesamt 158.000 Menschen in der Ausbildung.","~30 Sek.")'>🔊 KI vorlesen</button>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#8b6914"></div>
+    <span class="clbl" style="color:#8b6914">⚡ recht</span>
+    <span class="cdt">Jan. 2026</span>
+  </div>
+  <div class="cbody">
+    <h3>Berliner Stromausfall: Verwundbarkeit ambulanter Pflegedienste sichtbar</h3>
+    <p>Der Berliner Massenstromausfall legte offen, wie abhängig ambulante Pflegedienste von stabiler Energieversorgung sind. Pflegerat fordert Notfallpläne.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://deutscher-pflegerat.de/" target="_blank">Deutscher Pflegerat</a></span>
+      <button class="rbtn" onclick='openReader("Berliner Stromausfall: Verwundbarkeit ambulanter Pflegedienste sichtbar","Berliner Stromausfall: Verwundbarkeit ambulanter Pflegedienste sichtbar. Der Berliner Massenstromausfall legte offen, wie abhängig ambulante Pflegedienste von stabiler Energieversorgung sind. Pflegerat fordert Notfallpläne.","~30 Sek.")'>🔊 KI vorlesen</button>
+    </div>
+  </div>
+</div></div>
+</div>
+<div class="page-articles" id="news-p1" style="display:none">
+<div class="grid"><div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#8b6914"></div>
+    <span class="clbl" style="color:#8b6914">⚖️ recht</span>
+    <span class="cdt">Dez. 2025</span>
+  </div>
+  <div class="cbody">
+    <h3>Pflegereformen 2026: ePA-Pflicht, BEEP und Krankenhaus-Transformationsfonds</h3>
+    <p>Krankenhaus-Transformationsfonds (bis 50 Mrd. € bis 2035) startet, ePA-Pflicht für Praxen gilt ab Januar. BEEP stärkt Pflegekräfte und reduziert Bürokratie.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.zwp-online.info/" target="_blank">BMG / ZWP-Online</a></span>
+      <button class="rbtn" onclick='openReader("Pflegereformen 2026: ePA-Pflicht, BEEP und Krankenhaus-Transformationsfonds","Pflegereformen 2026: ePA-Pflicht, BEEP und Krankenhaus-Transformationsfonds. Krankenhaus-Transformationsfonds (bis 50 Mrd. € bis 2035) startet, ePA-Pflicht für Praxen gilt ab Januar. BEEP stärkt Pflegekräfte und reduziert Bürokratie.","~30 Sek.")'>🔊 KI vorlesen</button>
+    </div>
+  </div>
+</div></div>
+</div>
+<div class="pagination" id="news-pag">
+<button class="pgbtn active" onclick="gotoPage('news',0,2)">1</button>
+<button class="pgbtn" onclick="gotoPage('news',1,2)">2</button>
+<span class="pginfo" id="news-pginfo">Seite 1 von 2</span>
+</div>
   </div>
 </div>
 
-<!-- RECHTLICHES HUB -->
+<!-- RECHTLICHES -->
 <div class="pg" id="pg-recht" style="overflow-y:auto;background:var(--bg)">
   <div class="rh">
     <h1>⚖️ Rechtliches</h1>
-    <p class="rsub">Aktuelle Urteile &amp; Gesetzesänderungen · Quellen: LTO.de, Otto Schmidt, BAG · Stand: 20.04.2026</p>
+    <p class="rsub">Aktuelle Urteile &amp; Gesetzesänderungen · Quellen: LTO.de, Otto Schmidt, BAG · Stand: 21.04.2026</p>
     <div class="rcards">
       <div class="rcard" style="border-left-color:#e67e22" onclick="nav('ar')">
         <div class="ri">👔</div><h3>Arbeitsrecht</h3>
         <p>Kündigung, Abmahnung, Low Performer, Homeoffice, Mindestlohn – ohne Betriebsrat</p>
-        <div class="rc" style="color:#e67e22">3 Artikel →</div>
+        <div class="rc" style="color:#e67e22">9 Artikel →</div>
       </div>
       <div class="rcard" style="border-left-color:#c0392b" onclick="nav('ir')">
         <div class="ri">📉</div><h3>Insolvenzrecht</h3>
         <p>Unternehmensinsolvenzen, Sanierungspflichten, EU-Harmonisierung</p>
-        <div class="rc" style="color:#c0392b">2 Artikel →</div>
+        <div class="rc" style="color:#c0392b">4 Artikel →</div>
       </div>
       <div class="rcard" style="border-left-color:#1a6fa8" onclick="nav('mr')">
         <div class="ri">🏘️</div><h3>Mietrecht</h3>
         <p>Mietpreisbremse, Indexmieten, BGH-Urteile, Gewerberaum</p>
-        <div class="rc" style="color:#1a6fa8">2 Artikel →</div>
+        <div class="rc" style="color:#1a6fa8">4 Artikel →</div>
       </div>
       <div class="rcard" style="border-left-color:#1a7b5e" onclick="nav('pr')">
         <div class="ri">🩺</div><h3>Recht &amp; Pflege</h3>
         <p>BEEP-Gesetz, Pflegereform, Verhinderungspflege</p>
-        <div class="rc" style="color:#1a7b5e">2 Artikel →</div>
+        <div class="rc" style="color:#1a7b5e">5 Artikel →</div>
       </div>
     </div>
   </div>
@@ -347,172 +421,422 @@ svg#map{width:100%;height:100%;display:block}
 <!-- ARBEITSRECHT -->
 <div class="pg ap" id="pg-ar">
   <div class="aw">
-    <div class="ah"><h1>👔 Arbeitsrecht</h1><p>Quellen: LTO.de, Otto Schmidt, BAG · Individualarbeitsrecht ohne Betriebsrat · Stand: 20.04.2026</p></div>
+    <div class="ah"><h1>👔 Arbeitsrecht</h1><p>Quellen: LTO.de, Otto Schmidt, BAG · Individualarbeitsrecht ohne Betriebsrat · Stand: 21.04.2026</p></div>
     <div class="feat">
   <div class="ftag">⭐ Priorität für betriebsratslose Arbeitgeber</div>
-  <h2>BAG: Einwurf-Einschreiben beweist Kündigungszugang nicht mehr</h2><p>BAG (30.01.2025): Kein Anscheinsbeweis durch Online-Sendungsstatus. Persönliche Übergabe empfehlenswert.</p>
+  <h2>BAG: Einwurf-Einschreiben beweist Kündigungszugang nicht mehr – neue Regeln 2026</h2>
+  <p>BAG (30.01.2025 – 2 AZR 68/24): Kein Anscheinsbeweis durch Online-Sendungsstatus. Arbeitgeber müssen tatsächlichen Auslieferungsbeleg vorweisen oder persönlich mit Zeugen übergeben.</p>
   <div class="fmeta">
     <span>Jan. 2025</span>
     <span><a href="https://www.lto.de/recht/hintergruende/h/arbeitsrecht-neuerungen-2026-mindestlohn-aktivrente" target="_blank">LTO.de</a></span>
-    <button class="frbtn" onclick='openReader("BAG: Einwurf-Einschreiben beweist Kündigungszugang nicht mehr","BAG: Einwurf-Einschreiben beweist Kündigungszugang nicht mehr. BAG (30.01.2025): Kein Anscheinsbeweis durch Online-Sendungsstatus. Persönliche Übergabe empfehlenswert.")'>🔊 KI vorlesen</button>
-  </div></div>
-    <div class="grid"><div class="card">
-  <div class="ctag"><div class="dot" style="background:#e67e22"></div>
-    <span class="lbl" style="color:#e67e22"> ⭐ Individualarbeitsrecht</span>
-    <span class="dt">Jan. 2025</span></div>
+    <button class="frbtn" onclick='openReader("BAG: Einwurf-Einschreiben beweist Kündigungszugang nicht mehr – neue Regeln 2026","BAG: Einwurf-Einschreiben beweist Kündigungszugang nicht mehr – neue Regeln 2026. BAG (30.01.2025 – 2 AZR 68/24): Kein Anscheinsbeweis durch Online-Sendungsstatus. Arbeitgeber müssen tatsächlichen Auslieferungsbeleg vorweisen oder persönlich mit Zeugen übergeben.","~30 Sek.")'>🔊 KI vorlesen</button>
+  </div>
+</div>
+<div class="page-articles" id="ar-p0" style="display:block">
+<div class="grid"><div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#e67e22"></div>
+    <span class="clbl" style="color:#e67e22"> ⭐ Individualarbeitsrecht</span>
+    <span class="cdt">Jan. 2025</span>
+  </div>
   <div class="cbody">
-    <h3>LAG Köln: Kündigung Low Performer – strenge Anforderungen</h3><p>AN muss Durchschnittsleistung um mehr als ein Drittel unterschreiten. Jahrelanges Ignorieren vereitelt Kündigung.</p>
+    <h3>LAG Köln: Kündigung eines Low Performers – strenge Anforderungen für Arbeitgeber</h3>
+    <p>LAG Köln (18.02.2025 – 7 Sa 558/23): Arbeitgeber muss darlegen dass AN die Durchschnittsleistung um mehr als ein Drittel unterschreitet. Jahrelanges Ignorieren von Minderleistung kann eine Kündigung nachträglich vereiteln.</p>
     <div class="cmeta">
       <span>📄 <a href="https://kliemt.blog/" target="_blank">kliemt.blog</a></span>
-      <button class="rbtn" onclick='openReader("LAG Köln: Kündigung Low Performer – strenge Anforderungen","LAG Köln: Kündigung Low Performer – strenge Anforderungen. AN muss Durchschnittsleistung um mehr als ein Drittel unterschreiten. Jahrelanges Ignorieren vereitelt Kündigung.")'>🔊 KI vorlesen</button>
+      <button class="rbtn" onclick='openReader("LAG Köln: Kündigung eines Low Performers – strenge Anforderungen für Arbeitgeber","LAG Köln: Kündigung eines Low Performers – strenge Anforderungen für Arbeitgeber. LAG Köln (18.02.2025 – 7 Sa 558/23): Arbeitgeber muss darlegen dass AN die Durchschnittsleistung um mehr als ein Drittel unterschreitet. Jahrelanges Ignorieren von Minderleistung kann eine Kündigung nachträglich vereiteln.","~30 Sek.")'>🔊 KI vorlesen</button>
     </div>
-  </div></div>
+  </div>
+</div>
 <div class="card">
-  <div class="ctag"><div class="dot" style="background:#555"></div>
-    <span class="lbl" style="color:#555"> Mindestlohn</span>
-    <span class="dt">Jan. 2026</span></div>
+  <div class="ctag">
+    <div class="dot" style="background:#e67e22"></div>
+    <span class="clbl" style="color:#e67e22"> ⭐ Homeoffice</span>
+    <span class="cdt">aktuell</span>
+  </div>
   <div class="cbody">
-    <h3>Mindestlohn 13,90€ – Pflegemindestlohn ab Juli 2026 höher</h3><p>Ab Juli 2026: 16,52€ für einfache, 17,80€ für qualifizierte Pflegekräfte.</p>
+    <h3>Beweislast bei Minderleistung im Homeoffice liegt beim Arbeitgeber</h3>
+    <p>LAG MV: Arbeitgeber muss objektivierbar nachweisen dass AN nicht vertragsgemäß arbeitet. Empfehlung: Arbeitszeiterfassung, Videokonferenzen und Plausibilitätskontrolle einrichten.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.ey.com/" target="_blank">EY / Haufe</a></span>
+      <button class="rbtn" onclick='openReader("Beweislast bei Minderleistung im Homeoffice liegt beim Arbeitgeber","Beweislast bei Minderleistung im Homeoffice liegt beim Arbeitgeber. LAG MV: Arbeitgeber muss objektivierbar nachweisen dass AN nicht vertragsgemäß arbeitet. Empfehlung: Arbeitszeiterfassung, Videokonferenzen und Plausibilitätskontrolle einrichten.","~30 Sek.")'>🔊 KI vorlesen</button>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#e67e22"></div>
+    <span class="clbl" style="color:#e67e22"> ⭐ Abmahnung</span>
+    <span class="cdt">Feb. 2026</span>
+  </div>
+  <div class="cbody">
+    <h3>LAG Hamburg: Abmahnung & Kündigung wegen Nicht-Genderns unwirksam</h3>
+    <p>LAG Hamburg (05.02.2026): Zwei Abmahnungen und fristlose Kündigung wegen nicht gegenderter Texte sind unwirksam. Maßnahmen müssen verhältnismäßig sein.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.fgvw.de/" target="_blank">FGVW</a></span>
+      <button class="rbtn" onclick='openReader("LAG Hamburg: Abmahnung & Kündigung wegen Nicht-Genderns unwirksam","LAG Hamburg: Abmahnung & Kündigung wegen Nicht-Genderns unwirksam. LAG Hamburg (05.02.2026): Zwei Abmahnungen und fristlose Kündigung wegen nicht gegenderter Texte sind unwirksam. Maßnahmen müssen verhältnismäßig sein.","~30 Sek.")'>🔊 KI vorlesen</button>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#555"></div>
+    <span class="clbl" style="color:#555"> Mindestlohn</span>
+    <span class="cdt">Jan. 2026</span>
+  </div>
+  <div class="cbody">
+    <h3>Mindestlohn 13,90 € – Pflegemindestlohn ab Juli 2026 auf 16,52 € bzw. 17,80 €</h3>
+    <p>LTO.de: Zum 1. Januar 2026 stieg der gesetzliche Mindestlohn auf 13,90 €. Für Pflegekräfte gilt ab Juli 2026: 16,52 € (einfach) und 17,80 € (qualifiziert) – direkt relevant für alle Pflegewerk-Standorte.</p>
     <div class="cmeta">
       <span>📄 <a href="https://www.lto.de/" target="_blank">LTO.de</a></span>
-      <button class="rbtn" onclick='openReader("Mindestlohn 13,90€ – Pflegemindestlohn ab Juli 2026 höher","Mindestlohn 13,90€ – Pflegemindestlohn ab Juli 2026 höher. Ab Juli 2026: 16,52€ für einfache, 17,80€ für qualifizierte Pflegekräfte.")'>🔊 KI vorlesen</button>
+      <button class="rbtn" onclick='openReader("Mindestlohn 13,90 € – Pflegemindestlohn ab Juli 2026 auf 16,52 € bzw. 17,80 €","Mindestlohn 13,90 € – Pflegemindestlohn ab Juli 2026 auf 16,52 € bzw. 17,80 €. LTO.de: Zum 1. Januar 2026 stieg der gesetzliche Mindestlohn auf 13,90 €. Für Pflegekräfte gilt ab Juli 2026: 16,52 € (einfach) und 17,80 € (qualifiziert) – direkt relevant für alle Pflegewerk-Standorte.","~30 Sek.")'>🔊 KI vorlesen</button>
     </div>
-  </div></div>
+  </div>
+</div>
 <div class="card">
-  <div class="ctag"><div class="dot" style="background:#555"></div>
-    <span class="lbl" style="color:#555"> BEM-Pflicht</span>
-    <span class="dt">Jan. 2026</span></div>
+  <div class="ctag">
+    <div class="dot" style="background:#555"></div>
+    <span class="clbl" style="color:#555"> BEM-Pflicht</span>
+    <span class="cdt">Jan. 2026</span>
+  </div>
   <div class="cbody">
-    <h3>BEM-Verfahren Pflicht bei 6 Wochen AU/Jahr</h3><p>Ohne BEM ist krankheitsbedingte Kündigung kaum haltbar.</p>
+    <h3>Low Performer & Krankheit: BEM-Verfahren Pflicht bei 6 Wochen AU/Jahr</h3>
+    <p>Bei mehr als 6 Wochen AU/Jahr ist ein Betriebliches Eingliederungsmanagement (BEM) nach §167 Abs.2 SGB IX Pflicht. Ohne BEM ist eine krankheitsbedingte Kündigung kaum haltbar.</p>
     <div class="cmeta">
       <span>📄 <a href="https://www.springerprofessional.de/" target="_blank">springerprofessional.de</a></span>
-      <button class="rbtn" onclick='openReader("BEM-Verfahren Pflicht bei 6 Wochen AU/Jahr","BEM-Verfahren Pflicht bei 6 Wochen AU/Jahr. Ohne BEM ist krankheitsbedingte Kündigung kaum haltbar.")'>🔊 KI vorlesen</button>
+      <button class="rbtn" onclick='openReader("Low Performer & Krankheit: BEM-Verfahren Pflicht bei 6 Wochen AU/Jahr","Low Performer & Krankheit: BEM-Verfahren Pflicht bei 6 Wochen AU/Jahr. Bei mehr als 6 Wochen AU/Jahr ist ein Betriebliches Eingliederungsmanagement (BEM) nach §167 Abs.2 SGB IX Pflicht. Ohne BEM ist eine krankheitsbedingte Kündigung kaum haltbar.","~30 Sek.")'>🔊 KI vorlesen</button>
     </div>
-  </div></div></div>
+  </div>
+</div>
+<div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#555"></div>
+    <span class="clbl" style="color:#555"> Entgelttransparenz</span>
+    <span class="cdt">Juni 2026</span>
+  </div>
+  <div class="cbody">
+    <h3>EU-Entgelttransparenzrichtlinie: Ab Juni 2026 Pflichten für Unternehmen ab 100 Beschäftigte</h3>
+    <p>Ab Juni 2026 müssen Unternehmen ab 100 Beschäftigten Entgelttransparenzpflichten erfüllen und bei Lohngefällen Maßnahmen ergreifen.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.otto-schmidt.de/news/arbeits-und-sozialrecht" target="_blank">Otto Schmidt / LTO.de</a></span>
+      <button class="rbtn" onclick='openReader("EU-Entgelttransparenzrichtlinie: Ab Juni 2026 Pflichten für Unternehmen ab 100 Beschäftigte","EU-Entgelttransparenzrichtlinie: Ab Juni 2026 Pflichten für Unternehmen ab 100 Beschäftigte. Ab Juni 2026 müssen Unternehmen ab 100 Beschäftigten Entgelttransparenzpflichten erfüllen und bei Lohngefällen Maßnahmen ergreifen.","~30 Sek.")'>🔊 KI vorlesen</button>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#555"></div>
+    <span class="clbl" style="color:#555"> BAG Urteil</span>
+    <span class="cdt">Jan. 2026</span>
+  </div>
+  <div class="cbody">
+    <h3>BAG 28.01.2026: Neue Rechtsprechung zu Annahmeverzugslohn nach Kündigung</h3>
+    <p>BAG (28.01.2026 – 5 AS 4/25): Der Fünfte Senat ändert seine Rechtsprechung zu §615 BGB. Bei unwirksamer Kündigung kann der AN Annahmeverzugslohn verlangen.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.otto-schmidt.de/news/arbeits-und-sozialrecht" target="_blank">Otto Schmidt</a></span>
+      <button class="rbtn" onclick='openReader("BAG 28.01.2026: Neue Rechtsprechung zu Annahmeverzugslohn nach Kündigung","BAG 28.01.2026: Neue Rechtsprechung zu Annahmeverzugslohn nach Kündigung. BAG (28.01.2026 – 5 AS 4/25): Der Fünfte Senat ändert seine Rechtsprechung zu §615 BGB. Bei unwirksamer Kündigung kann der AN Annahmeverzugslohn verlangen.","~30 Sek.")'>🔊 KI vorlesen</button>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#555"></div>
+    <span class="clbl" style="color:#555"> Arbeitszeugnis</span>
+    <span class="cdt">Feb. 2026</span>
+  </div>
+  <div class="cbody">
+    <h3>LAG Hamm: Arbeitszeugnis muss auf Firmenbriefbogen ausgestellt werden</h3>
+    <p>LAG Hamm (19.02.2026 – 9 Ta 319/25): Arbeitszeugnis ohne ordnungsgemäßen Briefkopf erfüllt den Zeugnisanspruch nicht. Arbeitnehmer kann neues Zeugnis auf Firmenbriefbogen verlangen.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.otto-schmidt.de/news/arbeits-und-sozialrecht" target="_blank">Otto Schmidt</a></span>
+      <button class="rbtn" onclick='openReader("LAG Hamm: Arbeitszeugnis muss auf Firmenbriefbogen ausgestellt werden","LAG Hamm: Arbeitszeugnis muss auf Firmenbriefbogen ausgestellt werden. LAG Hamm (19.02.2026 – 9 Ta 319/25): Arbeitszeugnis ohne ordnungsgemäßen Briefkopf erfüllt den Zeugnisanspruch nicht. Arbeitnehmer kann neues Zeugnis auf Firmenbriefbogen verlangen.","~30 Sek.")'>🔊 KI vorlesen</button>
+    </div>
+  </div>
+</div></div>
+</div>
+<div class="page-articles" id="ar-p1" style="display:none">
+<div class="grid"><div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#555"></div>
+    <span class="clbl" style="color:#555"> Arbeitszeiterfassung</span>
+    <span class="cdt">Jan. 2026</span>
+  </div>
+  <div class="cbody">
+    <h3>Arbeitszeiterfassung: Pflicht besteht bereits – Konkretisierung noch ausstehend</h3>
+    <p>Die Pflicht zur Arbeitszeiterfassung besteht bereits (Rechtsprechung). Eine gesetzliche Konkretisierung mit elektronischer Erfassung ist Gegenstand eines BMAS-Entwurfs, aber noch nicht in Kraft.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.lto.de/" target="_blank">LTO.de</a></span>
+      <button class="rbtn" onclick='openReader("Arbeitszeiterfassung: Pflicht besteht bereits – Konkretisierung noch ausstehend","Arbeitszeiterfassung: Pflicht besteht bereits – Konkretisierung noch ausstehend. Die Pflicht zur Arbeitszeiterfassung besteht bereits (Rechtsprechung). Eine gesetzliche Konkretisierung mit elektronischer Erfassung ist Gegenstand eines BMAS-Entwurfs, aber noch nicht in Kraft.","~30 Sek.")'>🔊 KI vorlesen</button>
+    </div>
+  </div>
+</div></div>
+</div>
+<div class="pagination" id="ar-pag">
+<button class="pgbtn active" onclick="gotoPage('ar',0,2)">1</button>
+<button class="pgbtn" onclick="gotoPage('ar',1,2)">2</button>
+<span class="pginfo" id="ar-pginfo">Seite 1 von 2</span>
+</div>
   </div>
 </div>
 
 <!-- INSOLVENZRECHT -->
 <div class="pg ap" id="pg-ir">
   <div class="aw">
-    <div class="ah"><h1>📉 Insolvenzrecht</h1><p>Stand: 20.04.2026</p></div>
+    <div class="ah"><h1>📉 Insolvenzrecht</h1><p>Stand: 21.04.2026</p></div>
     <div class="feat">
   <div class="ftag">📈 Insolvenzzahlen steigen weiter</div>
-  <h2>+4,9% Unternehmensinsolvenzen Januar 2026</h2><p>1.919 beantragte Insolvenzen, +4,9% ggü. Vorjahr.</p>
+  <h2>+4,9% Unternehmensinsolvenzen im Januar 2026 – anhaltender Anstieg</h2>
+  <p>Das Statistische Bundesamt meldet 1.919 beantragte Unternehmensinsolvenzen im Januar 2026 – 4,9% mehr als im Vorjahr. Der Anstieg setzt sich seit 2024 fort.</p>
   <div class="fmeta">
     <span>April 2026</span>
-    <span><a href="https://www.destatis.de/" target="_blank">Statistisches Bundesamt</a></span>
-    <button class="frbtn" onclick='openReader("+4,9% Unternehmensinsolvenzen Januar 2026","+4,9% Unternehmensinsolvenzen Januar 2026. 1.919 beantragte Insolvenzen, +4,9% ggü. Vorjahr.")'>🔊 KI vorlesen</button>
-  </div></div>
-    <div class="grid"><div class="card">
-  <div class="ctag"><div class="dot" style="background:#c0392b"></div>
-    <span class="lbl" style="color:#c0392b"> Insolvenzen</span>
-    <span class="dt">April 2026</span></div>
+    <span><a href="https://www.stangl-keppeler.de/" target="_blank">Statistisches Bundesamt</a></span>
+    <button class="frbtn" onclick='openReader("+4,9% Unternehmensinsolvenzen im Januar 2026 – anhaltender Anstieg","+4,9% Unternehmensinsolvenzen im Januar 2026 – anhaltender Anstieg. Das Statistische Bundesamt meldet 1.919 beantragte Unternehmensinsolvenzen im Januar 2026 – 4,9% mehr als im Vorjahr. Der Anstieg setzt sich seit 2024 fort.","~30 Sek.")'>🔊 KI vorlesen</button>
+  </div>
+</div>
+<div class="page-articles" id="ir-p0" style="display:block">
+<div class="grid"><div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#c0392b"></div>
+    <span class="clbl" style="color:#c0392b"> Unternehmensinsolvenzen</span>
+    <span class="cdt">April 2026</span>
+  </div>
   <div class="cbody">
-    <h3>1.919 Unternehmensinsolvenzen im Januar 2026</h3><p>Statistisches Bundesamt: Anhaltender Anstieg seit 2024.</p>
+    <h3>1.919 Unternehmensinsolvenzen im Januar 2026</h3>
+    <p>Statistisches Bundesamt: 1.919 beantragte Insolvenzen, +4,9% ggü. Vorjahr. Nachholeffekte der Coronapandemie und strukturelle Krisen halten an.</p>
     <div class="cmeta">
-      <span>📄 <a href="https://www.stangl-keppeler.de/" target="_blank">Stat. Bundesamt</a></span>
-      <button class="rbtn" onclick='openReader("1.919 Unternehmensinsolvenzen im Januar 2026","1.919 Unternehmensinsolvenzen im Januar 2026. Statistisches Bundesamt: Anhaltender Anstieg seit 2024.")'>🔊 KI vorlesen</button>
+      <span>📄 <a href="https://www.stangl-keppeler.de/" target="_blank">Statistisches Bundesamt</a></span>
+      <button class="rbtn" onclick='openReader("1.919 Unternehmensinsolvenzen im Januar 2026","1.919 Unternehmensinsolvenzen im Januar 2026. Statistisches Bundesamt: 1.919 beantragte Insolvenzen, +4,9% ggü. Vorjahr. Nachholeffekte der Coronapandemie und strukturelle Krisen halten an.","~30 Sek.")'>🔊 KI vorlesen</button>
     </div>
-  </div></div>
+  </div>
+</div>
 <div class="card">
-  <div class="ctag"><div class="dot" style="background:#c0392b"></div>
-    <span class="lbl" style="color:#c0392b"> GF-Haftung</span>
-    <span class="dt">Jan. 2025</span></div>
+  <div class="ctag">
+    <div class="dot" style="background:#c0392b"></div>
+    <span class="clbl" style="color:#c0392b"> Geschäftsführerhaftung</span>
+    <span class="cdt">Jan. 2025</span>
+  </div>
   <div class="cbody">
-    <h3>Insolvenzantragspflicht gilt wieder voll</h3><p>Bei Verzögerung droht GF persönliche Haftung.</p>
+    <h3>Insolvenzantragspflicht gilt wieder voll – persönliche Haftung für Geschäftsleiter</h3>
+    <p>GF müssen regelmäßig prüfen, ob ihr Unternehmen insolvenzreif ist. Bei Verzögerung droht persönliche Haftung. Außergerichtliche Sanierung hat immer Vorrang.</p>
     <div class="cmeta">
       <span>📄 <a href="https://www.schultze-braun.de/" target="_blank">Schultze & Braun</a></span>
-      <button class="rbtn" onclick='openReader("Insolvenzantragspflicht gilt wieder voll","Insolvenzantragspflicht gilt wieder voll. Bei Verzögerung droht GF persönliche Haftung.")'>🔊 KI vorlesen</button>
+      <button class="rbtn" onclick='openReader("Insolvenzantragspflicht gilt wieder voll – persönliche Haftung für Geschäftsleiter","Insolvenzantragspflicht gilt wieder voll – persönliche Haftung für Geschäftsleiter. GF müssen regelmäßig prüfen, ob ihr Unternehmen insolvenzreif ist. Bei Verzögerung droht persönliche Haftung. Außergerichtliche Sanierung hat immer Vorrang.","~30 Sek.")'>🔊 KI vorlesen</button>
     </div>
-  </div></div></div>
+  </div>
+</div>
+<div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#555"></div>
+    <span class="clbl" style="color:#555"> EU-Reform</span>
+    <span class="cdt">Mai 2025</span>
+  </div>
+  <div class="cbody">
+    <h3>EU-Richtlinienvorschlag: Harmonisierung des europäischen Insolvenzrechts</h3>
+    <p>Am 23. Mai 2025 veröffentlichte der EU-Rat einen 137-seitigen Richtlinienvorschlag. Betroffen: Geschäftsleiterpflichten, Haftungsrisiken, grenzüberschreitende Verfahren. Umsetzung in deutsches Recht steht noch aus.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.bakertilly.de/" target="_blank">Baker Tilly</a></span>
+      <button class="rbtn" onclick='openReader("EU-Richtlinienvorschlag: Harmonisierung des europäischen Insolvenzrechts","EU-Richtlinienvorschlag: Harmonisierung des europäischen Insolvenzrechts. Am 23. Mai 2025 veröffentlichte der EU-Rat einen 137-seitigen Richtlinienvorschlag. Betroffen: Geschäftsleiterpflichten, Haftungsrisiken, grenzüberschreitende Verfahren. Umsetzung in deutsches Recht steht noch aus.","~30 Sek.")'>🔊 KI vorlesen</button>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#555"></div>
+    <span class="clbl" style="color:#555"> OLG Urteil</span>
+    <span class="cdt">2026</span>
+  </div>
+  <div class="cbody">
+    <h3>OLG Frankfurt: D&O-Versicherungsschutz bei insolvenzrechtlichem Zahlungsverbot fraglich</h3>
+    <p>Das OLG Frankfurt stellt D&O-Versicherungsschutz bei Verstößen gegen das insolvenzrechtliche Zahlungsverbot infrage. Konsequenzen für GF-Haftungsversicherungen.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.lto.de/" target="_blank">LTO.de</a></span>
+      <button class="rbtn" onclick='openReader("OLG Frankfurt: D&O-Versicherungsschutz bei insolvenzrechtlichem Zahlungsverbot fraglich","OLG Frankfurt: D&O-Versicherungsschutz bei insolvenzrechtlichem Zahlungsverbot fraglich. Das OLG Frankfurt stellt D&O-Versicherungsschutz bei Verstößen gegen das insolvenzrechtliche Zahlungsverbot infrage. Konsequenzen für GF-Haftungsversicherungen.","~30 Sek.")'>🔊 KI vorlesen</button>
+    </div>
+  </div>
+</div></div>
+</div>
   </div>
 </div>
 
 <!-- MIETRECHT -->
 <div class="pg ap" id="pg-mr">
   <div class="aw">
-    <div class="ah"><h1>🏘️ Mietrecht</h1><p>Stand: 20.04.2026</p></div>
+    <div class="ah"><h1>🏘️ Mietrecht</h1><p>Stand: 21.04.2026</p></div>
     <div class="feat">
   <div class="ftag">🔴 Referentenentwurf Februar 2026</div>
-  <h2>BMJV: Indexmieten gedeckelt</h2><p>Indexmieten auf 3,5% p.a. begrenzt.</p>
+  <h2>BMJV-Referentenentwurf: Indexmieten gedeckelt, Möblierungszuschläge begrenzt</h2>
+  <p>BMJV (8.2.2026): Indexmieten in angespannten Märkten auf 3,5% jährlich gedeckelt. Möblierungszuschläge müssen ausgewiesen werden (5%-Pauschale). Kurzzeitmietverträge stärker reguliert.</p>
   <div class="fmeta">
     <span>Feb. 2026</span>
     <span><a href="https://kpmg-law.de/" target="_blank">KPMG Law</a></span>
-    <button class="frbtn" onclick='openReader("BMJV: Indexmieten gedeckelt","BMJV: Indexmieten gedeckelt. Indexmieten auf 3,5% p.a. begrenzt.")'>🔊 KI vorlesen</button>
-  </div></div>
-    <div class="grid"><div class="card">
-  <div class="ctag"><div class="dot" style="background:#1a6fa8"></div>
-    <span class="lbl" style="color:#1a6fa8"> Reform 2026</span>
-    <span class="dt">Feb. 2026</span></div>
+    <button class="frbtn" onclick='openReader("BMJV-Referentenentwurf: Indexmieten gedeckelt, Möblierungszuschläge begrenzt","BMJV-Referentenentwurf: Indexmieten gedeckelt, Möblierungszuschläge begrenzt. BMJV (8.2.2026): Indexmieten in angespannten Märkten auf 3,5% jährlich gedeckelt. Möblierungszuschläge müssen ausgewiesen werden (5%-Pauschale). Kurzzeitmietverträge stärker reguliert.","~30 Sek.")'>🔊 KI vorlesen</button>
+  </div>
+</div>
+<div class="page-articles" id="mr-p0" style="display:block">
+<div class="grid"><div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#1a6fa8"></div>
+    <span class="clbl" style="color:#1a6fa8"> Reform 2026</span>
+    <span class="cdt">Feb. 2026</span>
+  </div>
   <div class="cbody">
-    <h3>Referentenentwurf Mietrecht 2026</h3><p>Indexmieten auf 3,5% gedeckelt, Möblierungszuschläge begrenzt.</p>
+    <h3>Referentenentwurf: Indexmieten auf 3,5% p.a. gedeckelt</h3>
+    <p>BMJV: Indexmieten in angespannten Märkten auf 3,5% jährlich begrenzt. Möblierungszuschläge 5%-Pauschale. Kurzzeitmietverträge stärker reguliert.</p>
     <div class="cmeta">
       <span>📄 <a href="https://kpmg-law.de/" target="_blank">KPMG Law</a></span>
-      <button class="rbtn" onclick='openReader("Referentenentwurf Mietrecht 2026","Referentenentwurf Mietrecht 2026. Indexmieten auf 3,5% gedeckelt, Möblierungszuschläge begrenzt.")'>🔊 KI vorlesen</button>
+      <button class="rbtn" onclick='openReader("Referentenentwurf: Indexmieten auf 3,5% p.a. gedeckelt","Referentenentwurf: Indexmieten auf 3,5% p.a. gedeckelt. BMJV: Indexmieten in angespannten Märkten auf 3,5% jährlich begrenzt. Möblierungszuschläge 5%-Pauschale. Kurzzeitmietverträge stärker reguliert.","~30 Sek.")'>🔊 KI vorlesen</button>
     </div>
-  </div></div>
+  </div>
+</div>
 <div class="card">
-  <div class="ctag"><div class="dot" style="background:#1a6fa8"></div>
-    <span class="lbl" style="color:#1a6fa8"> Mietpreisbremse</span>
-    <span class="dt">Dez. 2025</span></div>
+  <div class="ctag">
+    <div class="dot" style="background:#1a6fa8"></div>
+    <span class="clbl" style="color:#1a6fa8"> Mietpreisbremse</span>
+    <span class="cdt">Dez. 2025</span>
+  </div>
   <div class="cbody">
-    <h3>Mietpreisbremse bis 2029 verlängert</h3><p>Maximal 10% über Vergleichsmiete in angespannten Gebieten.</p>
+    <h3>Mietpreisbremse bis Ende 2029 verlängert</h3>
+    <p>Bundestag beschloss Verlängerung bis Ende 2029. Maximal 10% über der Vergleichsmiete in angespannten Gebieten. Mietobergrenzen für geförderten Wohnraum steigen ab 1.1.2026.</p>
     <div class="cmeta">
       <span>📄 <a href="https://ivd.net/" target="_blank">IVD</a></span>
-      <button class="rbtn" onclick='openReader("Mietpreisbremse bis 2029 verlängert","Mietpreisbremse bis 2029 verlängert. Maximal 10% über Vergleichsmiete in angespannten Gebieten.")'>🔊 KI vorlesen</button>
+      <button class="rbtn" onclick='openReader("Mietpreisbremse bis Ende 2029 verlängert","Mietpreisbremse bis Ende 2029 verlängert. Bundestag beschloss Verlängerung bis Ende 2029. Maximal 10% über der Vergleichsmiete in angespannten Gebieten. Mietobergrenzen für geförderten Wohnraum steigen ab 1.1.2026.","~30 Sek.")'>🔊 KI vorlesen</button>
     </div>
-  </div></div></div>
+  </div>
+</div>
+<div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#555"></div>
+    <span class="clbl" style="color:#555"> BGH-Urteil</span>
+    <span class="cdt">Jan. 2026</span>
+  </div>
+  <div class="cbody">
+    <h3>BGH VIII ZR 247/24: Eigentumsübertragung vermieteter Wohnräume an GmbH</h3>
+    <p>BGH (21.01.2026): Bei Einbringung vermieteter Wohnräume durch alleinigen Gesellschafter in eine GmbH gelten besondere Regeln für Mietverhältnisse.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.vermieterverein.de/" target="_blank">Vermieterverein.de</a></span>
+      <button class="rbtn" onclick='openReader("BGH VIII ZR 247/24: Eigentumsübertragung vermieteter Wohnräume an GmbH","BGH VIII ZR 247/24: Eigentumsübertragung vermieteter Wohnräume an GmbH. BGH (21.01.2026): Bei Einbringung vermieteter Wohnräume durch alleinigen Gesellschafter in eine GmbH gelten besondere Regeln für Mietverhältnisse.","~30 Sek.")'>🔊 KI vorlesen</button>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#555"></div>
+    <span class="clbl" style="color:#555"> Gewerberaum</span>
+    <span class="cdt">Feb. 2026</span>
+  </div>
+  <div class="cbody">
+    <h3>Gewerberaum: Betriebskostenbelege dürfen digital übermittelt werden</h3>
+    <p>Die Mietrechtsreform erlaubt Vermietern von Gewerbeimmobilien, Betriebskostenbelege digital statt in Papierform vorzulegen. Vorteil für portfolioreiche Strukturen wie Pflegewerk.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://kpmg-law.de/" target="_blank">KPMG Law</a></span>
+      <button class="rbtn" onclick='openReader("Gewerberaum: Betriebskostenbelege dürfen digital übermittelt werden","Gewerberaum: Betriebskostenbelege dürfen digital übermittelt werden. Die Mietrechtsreform erlaubt Vermietern von Gewerbeimmobilien, Betriebskostenbelege digital statt in Papierform vorzulegen. Vorteil für portfolioreiche Strukturen wie Pflegewerk.","~30 Sek.")'>🔊 KI vorlesen</button>
+    </div>
+  </div>
+</div></div>
+</div>
   </div>
 </div>
 
 <!-- RECHT & PFLEGE -->
 <div class="pg ap" id="pg-pr">
   <div class="aw">
-    <div class="ah"><h1>🩺 Recht &amp; Pflege</h1><p>Stand: 20.04.2026</p></div>
+    <div class="ah"><h1>🩺 Recht &amp; Pflege</h1><p>Stand: 21.04.2026</p></div>
     <div class="feat">
   <div class="ftag">✅ In Kraft seit 1. Januar 2026</div>
-  <h2>BEEP: Neue Heilkundebefugnisse für Pflegekräfte</h2><p>In Kraft seit 1.1.2026. Verhinderungspflege-Frist auf 1 Jahr verkürzt.</p>
+  <h2>BEEP: Pflegefachkräfte erhalten neue Heilkundebefugnisse – weniger Bürokratie</h2>
+  <p>Das BEEP-Gesetz ist seit 1. Januar 2026 in Kraft. Pflegefachpersonen dürfen eigenverantwortlich Heilkundeleistungen erbringen. Beratungsbesuche werden reduziert, Verhinderungspflege-Frist auf 1 Jahr verkürzt.</p>
   <div class="fmeta">
     <span>Jan. 2026</span>
     <span><a href="https://www.bundesgesundheitsministerium.de/" target="_blank">BMG</a></span>
-    <button class="frbtn" onclick='openReader("BEEP: Neue Heilkundebefugnisse für Pflegekräfte","BEEP: Neue Heilkundebefugnisse für Pflegekräfte. In Kraft seit 1.1.2026. Verhinderungspflege-Frist auf 1 Jahr verkürzt.")'>🔊 KI vorlesen</button>
-  </div></div>
-    <div class="grid"><div class="card">
-  <div class="ctag"><div class="dot" style="background:#1a7b5e"></div>
-    <span class="lbl" style="color:#1a7b5e"> BEEP-Gesetz</span>
-    <span class="dt">Jan. 2026</span></div>
+    <button class="frbtn" onclick='openReader("BEEP: Pflegefachkräfte erhalten neue Heilkundebefugnisse – weniger Bürokratie","BEEP: Pflegefachkräfte erhalten neue Heilkundebefugnisse – weniger Bürokratie. Das BEEP-Gesetz ist seit 1. Januar 2026 in Kraft. Pflegefachpersonen dürfen eigenverantwortlich Heilkundeleistungen erbringen. Beratungsbesuche werden reduziert, Verhinderungspflege-Frist auf 1 Jahr verkürzt.","~30 Sek.")'>🔊 KI vorlesen</button>
+  </div>
+</div>
+<div class="page-articles" id="pr-p0" style="display:block">
+<div class="grid"><div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#1a7b5e"></div>
+    <span class="clbl" style="color:#1a7b5e"> BEEP-Gesetz</span>
+    <span class="cdt">Jan. 2026</span>
+  </div>
   <div class="cbody">
-    <h3>Verhinderungspflege nur noch 1 Jahr rückwirkend</h3><p>Nur noch für laufendes und voriges Kalenderjahr abrechnebar.</p>
+    <h3>BEEP: Verhinderungspflege nur noch für 1 Jahr rückwirkend abrechnebar</h3>
+    <p>Ab 1. Januar 2026 können Leistungen der Verhinderungspflege nur noch für das laufende und das unmittelbar vorige Kalenderjahr abgerechnet werden. Klienten müssen zeitnah informiert werden.</p>
     <div class="cmeta">
       <span>📄 <a href="https://pflegewaechter.de/" target="_blank">pflegewaechter.de</a></span>
-      <button class="rbtn" onclick='openReader("Verhinderungspflege nur noch 1 Jahr rückwirkend","Verhinderungspflege nur noch 1 Jahr rückwirkend. Nur noch für laufendes und voriges Kalenderjahr abrechnebar.")'>🔊 KI vorlesen</button>
+      <button class="rbtn" onclick='openReader("BEEP: Verhinderungspflege nur noch für 1 Jahr rückwirkend abrechnebar","BEEP: Verhinderungspflege nur noch für 1 Jahr rückwirkend abrechnebar. Ab 1. Januar 2026 können Leistungen der Verhinderungspflege nur noch für das laufende und das unmittelbar vorige Kalenderjahr abgerechnet werden. Klienten müssen zeitnah informiert werden.","~30 Sek.")'>🔊 KI vorlesen</button>
     </div>
-  </div></div>
+  </div>
+</div>
 <div class="card">
-  <div class="ctag"><div class="dot" style="background:#555"></div>
-    <span class="lbl" style="color:#555"> Pflegereform</span>
-    <span class="dt">Dez. 2025</span></div>
+  <div class="ctag">
+    <div class="dot" style="background:#1a7b5e"></div>
+    <span class="clbl" style="color:#1a7b5e"> BEEP-Gesetz</span>
+    <span class="cdt">Jan. 2026</span>
+  </div>
   <div class="cbody">
-    <h3>Zukunftspakt Pflege: Reformgesetz Ende 2026 geplant</h3><p>Eckpunkte liegen vor. Gesetz soll Ende 2026 in Kraft treten.</p>
+    <h3>§37.3 Beratungsbesuch: Nur noch halbjährlich verpflichtend</h3>
+    <p>Ab 2026 genügt halbjährlich ein Beratungsbesuch nach §37 Abs.3 SGB XI für alle Pflegegrade 2–5. Betrifft direkt die Abrechnungsstruktur aller ambulanten Pflegedienste.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.pflege.de/" target="_blank">pflege.de</a></span>
+      <button class="rbtn" onclick='openReader("§37.3 Beratungsbesuch: Nur noch halbjährlich verpflichtend","§37.3 Beratungsbesuch: Nur noch halbjährlich verpflichtend. Ab 2026 genügt halbjährlich ein Beratungsbesuch nach §37 Abs.3 SGB XI für alle Pflegegrade 2–5. Betrifft direkt die Abrechnungsstruktur aller ambulanten Pflegedienste.","~30 Sek.")'>🔊 KI vorlesen</button>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#555"></div>
+    <span class="clbl" style="color:#555"> Pflegereform</span>
+    <span class="cdt">Dez. 2025</span>
+  </div>
+  <div class="cbody">
+    <h3>Zukunftspakt Pflege: Reformgesetz Ende 2026 geplant</h3>
+    <p>Eckpunkte wurden im Dezember 2025 vorgelegt. Reformgesetz soll Ende 2026 in Kraft treten. Themen: Finanzierungsreform, Leistungsvereinfachung, Stärkung pflegender Angehöriger.</p>
     <div class="cmeta">
       <span>📄 <a href="https://www.pflegeabc.de/" target="_blank">pflegeabc.de</a></span>
-      <button class="rbtn" onclick='openReader("Zukunftspakt Pflege: Reformgesetz Ende 2026 geplant","Zukunftspakt Pflege: Reformgesetz Ende 2026 geplant. Eckpunkte liegen vor. Gesetz soll Ende 2026 in Kraft treten.")'>🔊 KI vorlesen</button>
+      <button class="rbtn" onclick='openReader("Zukunftspakt Pflege: Reformgesetz Ende 2026 geplant","Zukunftspakt Pflege: Reformgesetz Ende 2026 geplant. Eckpunkte wurden im Dezember 2025 vorgelegt. Reformgesetz soll Ende 2026 in Kraft treten. Themen: Finanzierungsreform, Leistungsvereinfachung, Stärkung pflegender Angehöriger.","~30 Sek.")'>🔊 KI vorlesen</button>
     </div>
-  </div></div></div>
+  </div>
+</div>
+<div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#555"></div>
+    <span class="clbl" style="color:#555"> Pflegekompetenz</span>
+    <span class="cdt">Jan. 2026</span>
+  </div>
+  <div class="cbody">
+    <h3>Eigenverantwortliche Heilkunde: Was Pflegekräfte ab 2026 konkret dürfen</h3>
+    <p>Pflegefachpersonen können nun eigenständig chronische Erkrankungen managen (Diabetes, Wundmanagement, Demenz). Konkrete Leistungen werden durch Verträge der Selbstverwaltung festgelegt.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://www.bundesregierung.de/" target="_blank">Bundesregierung.de</a></span>
+      <button class="rbtn" onclick='openReader("Eigenverantwortliche Heilkunde: Was Pflegekräfte ab 2026 konkret dürfen","Eigenverantwortliche Heilkunde: Was Pflegekräfte ab 2026 konkret dürfen. Pflegefachpersonen können nun eigenständig chronische Erkrankungen managen (Diabetes, Wundmanagement, Demenz). Konkrete Leistungen werden durch Verträge der Selbstverwaltung festgelegt.","~30 Sek.")'>🔊 KI vorlesen</button>
+    </div>
+  </div>
+</div>
+<div class="card">
+  <div class="ctag">
+    <div class="dot" style="background:#555"></div>
+    <span class="clbl" style="color:#555"> Pflegefinanzierung</span>
+    <span class="cdt">Jan. 2026</span>
+  </div>
+  <div class="cbody">
+    <h3>Digitale Pflegeanwendungen (DiPA): Vereinfachte Zulassung ab 2026</h3>
+    <p>40€/Monat für die App + 30€ für ambulante Unterstützung. Erstmals auch Apps für pflegende Angehörige förderfähig. Die Zugangshürden für Hersteller werden deutlich gesenkt.</p>
+    <div class="cmeta">
+      <span>📄 <a href="https://pflege-dschungel.de/" target="_blank">pflege-dschungel.de</a></span>
+      <button class="rbtn" onclick='openReader("Digitale Pflegeanwendungen (DiPA): Vereinfachte Zulassung ab 2026","Digitale Pflegeanwendungen (DiPA): Vereinfachte Zulassung ab 2026. 40€/Monat für die App + 30€ für ambulante Unterstützung. Erstmals auch Apps für pflegende Angehörige förderfähig. Die Zugangshürden für Hersteller werden deutlich gesenkt.","~30 Sek.")'>🔊 KI vorlesen</button>
+    </div>
+  </div>
+</div></div>
+</div>
   </div>
 </div>
 
 </div></div>
 
-<!-- READER MODAL -->
+<!-- READER -->
 <div id="reader" onclick="closeReader(event)">
   <div id="rbox" onclick="event.stopPropagation()">
-    <div id="rhdr">
-      <span style="font-size:16px;flex-shrink:0">🔊</span>
-      <h2>KI-Leser</h2>
-      <button id="rcls" onclick="closeReader()">×</button>
-    </div>
+    <div id="rhdr"><span style="font-size:16px;flex-shrink:0">🔊</span><h2 id="rtitle-hdr">KI-Leser</h2><button id="rcls" onclick="closeReader()">×</button></div>
     <div id="rbody">
       <div id="rtabs">
         <button class="rtab active" onclick="switchTab('sum')">🤖 KI-Zusammenfassung</button>
@@ -520,63 +844,64 @@ svg#map{width:100%;height:100%;display:block}
       </div>
       <div id="rtitle"></div>
       <div id="rsum-area">
-        <div id="rsum-lbl">KI-Zusammenfassung</div>
-        <div id="rsum"></div>
+        <div id="rsum-lbl">wird geladen…</div>
+        <div id="rsum"><div class="ail"><div class="ald"></div><div class="ald"></div><div class="ald"></div>&nbsp;KI analysiert…</div></div>
       </div>
       <div id="rorig-area" style="display:none">
         <div id="rtext"></div>
       </div>
     </div>
     <div id="rftr">
-      <span id="rstatus">Bereit</span>
-      <button class="rplay" id="rspeak-sum" onclick="speakActive()">▶️ Vorlesen</button>
-      <button class="rplay" id="rspeak-orig" onclick="speakOrig()" style="background:#555">🗣️ Original (~<span id="rtime">?</span>)</button>
+      <span id="rstatus">Zusammenfassung wird geladen…</span>
+      <button class="rplay" id="rbtn-sum" onclick="speakSum()">▶️ Zusammenfassung</button>
+      <button class="rplay rplay2" id="rbtn-orig" onclick="speakOrig()">🗣️ Original (<span id="rtime">?</span>)</button>
     </div>
   </div>
 </div>
 
 <script>
-// ── NAV ──────────────────────────────────────────────────────────────────────
+// NAV
 function nav(id){
   document.querySelectorAll('.pg').forEach(p=>p.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
-  const pg=document.getElementById('pg-'+id);
-  if(pg)pg.classList.add('active');
-  const ni=document.querySelector('.ni[data-pg="'+id+'"]');
-  if(ni)ni.classList.add('active');
+  document.getElementById('pg-'+id)?.classList.add('active');
+  document.querySelector('.ni[data-pg="'+id+'"]')?.classList.add('active');
   closeMenu();
 }
 document.querySelectorAll('.ni[data-pg]').forEach(n=>n.addEventListener('click',()=>nav(n.dataset.pg)));
 
-// ── MOBILE MENU ───────────────────────────────────────────────────────────────
-function toggleMenu(){
-  document.getElementById('sb').classList.toggle('open');
-  document.getElementById('sb-overlay').classList.toggle('open');
-}
-function closeMenu(){
-  document.getElementById('sb').classList.remove('open');
-  document.getElementById('sb-overlay').classList.remove('open');
+// MOBILE MENU
+function toggleMenu(){document.getElementById('sb').classList.toggle('open');document.getElementById('sb-overlay').classList.toggle('open');}
+function closeMenu(){document.getElementById('sb').classList.remove('open');document.getElementById('sb-overlay').classList.remove('open');}
+
+// PAGINATION
+function gotoPage(sid, pi, total){
+  document.querySelectorAll('[id^="'+sid+'-p"]').forEach(el=>el.style.display='none');
+  document.getElementById(sid+'-p'+pi).style.display='block';
+  document.querySelectorAll('#'+sid+'-pag .pgbtn').forEach((b,i)=>b.classList.toggle('active',i===pi));
+  document.getElementById(sid+'-pginfo').textContent='Seite '+(pi+1)+' von '+total;
+  document.getElementById('pg-'+sid)?.scrollTo(0,0);
 }
 
-// ── READER ────────────────────────────────────────────────────────────────────
-let _title='', _text='', _sumText='', _tab='sum', _speaking=false;
+// READER
+let _title='', _text='', _sumText='', _readTime='', _tab='sum', _speaking=false, _utt=null;
 
-function openReader(title, text){
-  _title=title; _text=text; _sumText=''; _tab='sum';
+function openReader(title, text, readtime){
+  _title=title; _text=text; _readTime=readtime; _sumText=''; _tab='sum';
+  document.getElementById('rtitle-hdr').textContent=title;
   document.getElementById('rtitle').textContent=title;
   document.getElementById('rtext').textContent=text;
-  // Lesezeit berechnen
-  const words=text.split(' ').length;
-  const mins=words/130;
-  const timeStr=mins<1?'~30 Sek.':`~${Math.ceil(mins)} Min.`;
-  document.getElementById('rtime').textContent=timeStr;
-  // Summary Tab active
+  document.getElementById('rtime').textContent=readtime;
   document.getElementById('rsum-area').style.display='block';
   document.getElementById('rorig-area').style.display='none';
   document.querySelectorAll('.rtab').forEach((t,i)=>t.classList.toggle('active',i===0));
-  document.getElementById('rsum-lbl').textContent='KI-Zusammenfassung';
-  document.getElementById('rsum').innerHTML='<div class="ail"><div class="ald"></div><div class="ald"></div><div class="ald"></div>&nbsp;KI analysiert…</div>';
+  document.getElementById('rsum-lbl').textContent='wird geladen…';
+  document.getElementById('rsum').innerHTML='<div class="ail"><div class="ald"></div><div class="ald"></div><div class="ald"></div>&nbsp;KI analysiert Artikel…</div>';
   document.getElementById('rstatus').textContent='Zusammenfassung wird geladen…';
+  document.getElementById('rbtn-sum').textContent='▶️ Zusammenfassung';
+  document.getElementById('rbtn-sum').className='rplay';
+  document.getElementById('rbtn-orig').innerHTML='🗣️ Original (<span id="rtime">'+readtime+'</span>)';
+  document.getElementById('rbtn-orig').className='rplay rplay2';
   stopSpeak();
   document.getElementById('reader').classList.add('show');
   loadSummary(title, text);
@@ -588,7 +913,6 @@ function switchTab(tab){
   document.querySelectorAll('.rtab').forEach((t,i)=>t.classList.toggle('active',(tab==='sum'&&i===0)||(tab==='orig'&&i===1)));
   document.getElementById('rsum-area').style.display=tab==='sum'?'block':'none';
   document.getElementById('rorig-area').style.display=tab==='orig'?'block':'none';
-  document.getElementById('rstatus').textContent=tab==='sum'?'Zusammenfassung · ▶️ vorlesen':'Originaltext · ▶️ vorlesen';
 }
 
 function closeReader(e){
@@ -598,154 +922,112 @@ function closeReader(e){
 }
 
 async function loadSummary(title, text){
-  const prompt=`Du bist ein internes KI-Tool der Pflegewerk Gruppe (ambulante Pflege, Betreutes Wohnen, Tagespflege, kein Betriebsrat).
+  const prompt = `Du bist ein internes KI-Tool der Pflegewerk Gruppe (ambulante Pflege, Betreutes Wohnen, Tagespflege, kein Betriebsrat).
 
-Erstelle eine ausführliche Zusammenfassung des folgenden Artikels in 5-7 Sätzen. Erkläre:
+Erstelle eine ausführliche Zusammenfassung in 5-7 Sätzen:
 1. Was ist passiert / was hat das Gericht entschieden?
 2. Was bedeutet das konkret für einen Pflegebetrieb ohne Betriebsrat?
-3. Welche Handlungsempfehlung ergibt sich daraus?
+3. Welche konkrete Handlungsempfehlung ergibt sich?
 
-Schreibe klar, sachlich und direkt. Keine Einleitung wie "Gerne" oder "Natürlich".
+Sachlich, direkt, ohne Einleitung.
 
 Titel: ${title}
 Text: ${text}`;
+
   try{
-    const res=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
-      body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:600,messages:[{role:'user',content:prompt}]})
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'anthropic-version': '2023-06-01',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-haiku-4-5-20251001',
+        max_tokens: 600,
+        messages: [{role:'user', content: prompt}]
+      })
     });
-    if(!res.ok)throw new Error('HTTP '+res.status);
-    const d=await res.json();
-    _sumText=d.content?.[0]?.text||'Keine Zusammenfassung verfügbar.';
-    document.getElementById('rsum').textContent=_sumText;
-    document.getElementById('rsum-lbl').textContent='🤖 KI-Zusammenfassung';
-    document.getElementById('rstatus').textContent='Bereit · ▶️ zum Vorlesen';
-  }catch(e){
-    _sumText=_text;
-    document.getElementById('rsum').textContent='KI nicht verfügbar ('+e.message+'). Originaltext wird vorgelesen.';
-    document.getElementById('rstatus').textContent='▶️ Originaltext vorlesen';
+    if(!res.ok) throw new Error('HTTP ' + res.status);
+    const d = await res.json();
+    _sumText = d.content?.[0]?.text || 'Keine Zusammenfassung verfügbar.';
+    document.getElementById('rsum').textContent = _sumText;
+    document.getElementById('rsum-lbl').textContent = '🤖 KI-Zusammenfassung';
+    document.getElementById('rstatus').textContent = 'Bereit – ▶️ zum Vorlesen';
+  } catch(e) {
+    _sumText = text;
+    document.getElementById('rsum').textContent = 'KI nicht verfügbar: ' + e.message;
+    document.getElementById('rsum-lbl').textContent = '⚠️ Fehler';
+    document.getElementById('rstatus').textContent = '▶️ Originaltext vorlesen';
   }
 }
 
-function speakActive(){
+function speakSum(){
   if(_speaking){stopSpeak();return;}
-  const txt=_tab==='sum'?(_sumText||_text):_text;
-  speak(_title+'. '+txt, document.getElementById('rspeak-sum'));
+  const t = _sumText && !_sumText.startsWith('KI nicht') ? _title+'. '+_sumText : _title+'. '+_text;
+  speak(t, document.getElementById('rbtn-sum'));
 }
 
 function speakOrig(){
   if(_speaking){stopSpeak();return;}
-  speak(_title+'. '+_text, document.getElementById('rspeak-orig'));
+  speak(_title+'. '+_text, document.getElementById('rbtn-orig'));
 }
 
 function speak(text, btn){
   if(!window.speechSynthesis){alert('Sprachsynthese nicht unterstützt.');return;}
   stopSpeak();
-  const u=new SpeechSynthesisUtterance(text);
-  u.lang='de-DE';u.rate=0.93;
-  u.onstart=()=>{_speaking=true;if(btn){btn.textContent='⏹ Stoppen';btn.className='rplay stop';}document.getElementById('rstatus').textContent='🔊 Wird vorgelesen…';};
-  u.onend=u.onerror=()=>{_speaking=false;document.getElementById('rspeak-sum').innerHTML='▶️ Vorlesen';document.getElementById('rspeak-sum').className='rplay';document.getElementById('rspeak-orig').innerHTML='🗣️ Original (~<span id="rtime">'+document.getElementById('rtime').textContent+'</span>)';document.getElementById('rspeak-orig').className='rplay';document.getElementById('rspeak-orig').style.background='#555';document.getElementById('rstatus').textContent='Fertig';};
-  window.speechSynthesis.speak(u);
+  _utt = new SpeechSynthesisUtterance(text);
+  _utt.lang='de-DE'; _utt.rate=0.93;
+  _utt.onstart=()=>{
+    _speaking=true;
+    if(btn){btn.textContent='⏹ Stoppen';btn.classList.add('stop');}
+    document.getElementById('rstatus').textContent='🔊 Wird vorgelesen…';
+  };
+  _utt.onend=_utt.onerror=()=>{
+    _speaking=false;
+    document.getElementById('rbtn-sum').textContent='▶️ Zusammenfassung';
+    document.getElementById('rbtn-sum').className='rplay';
+    document.getElementById('rbtn-orig').innerHTML='🗣️ Original (<span id="rtime">'+_readTime+'</span>)';
+    document.getElementById('rbtn-orig').className='rplay rplay2';
+    document.getElementById('rstatus').textContent='Fertig';
+  };
+  window.speechSynthesis.speak(_utt);
 }
 function stopSpeak(){if(window.speechSynthesis)window.speechSynthesis.cancel();_speaking=false;}
 
-// ── MINDMAP ───────────────────────────────────────────────────────────────────
+// MINDMAP
 const P='Evelyn Schoepe',PT='030 / 470 80 621',PR_='GF Philos Seniorenresidenzen GmbH';
 const B=[
   {id:'ambulant',name:'AMBULANTE\nPFLEGE',icon:'🏠',color:'#1a6fa8',light:'#d8ecf7',angle:-108,r:195,
    leitung:[{name:'Gianna Trevisan',rolle:'GL Berlin',tel:'030 / 45 47 83 15'},{name:'Daniel Bartholomä',rolle:'Stv. GL Berlin',tel:'030 / 45 47 83 15'},{name:'Jeanette Nowicki',rolle:'GL Erding/HH/München/Magdeburg',tel:'030 / 45 47 83 17'},{name:'Frank Lehmköster',rolle:'GL Köln/Pulheim',tel:'0221 / 28 58 18-0'}],
    gruppen:[
-    {id:'ab',name:'Berlin',kinder:[
-      {id:'a1',name:'Friedrichshain',addr:'Matthiasstraße 7, 10249 Berlin',pdl:'Andrea Poet',rolle:'PDL',tel:'030 / 42 10 89 60',note:''},
-      {id:'a2',name:'Neukölln',addr:'Moosrosenstraße 25, 12347 Berlin',pdl:'Negosava Markovic',rolle:'PDL',tel:'030 / 606 20 54',note:''},
-      {id:'a3',name:'Reinickendorf',addr:'Senftenberger Ring 5a, 13439 Berlin',pdl:'Peggi-Alexandra Bressem',rolle:'PDL',tel:'030 / 407 79 70',note:''},
-      {id:'a4',name:'Tempelhof',addr:'Manfred-von-Richthofen-Str. 10, 12101 Berlin',pdl:'Benjamin Paulsen',rolle:'PDL',tel:'030 / 785 70 01',note:''},
-      {id:'a5',name:'Wedding',addr:'Osloer Straße 106/107, 13359 Berlin',pdl:'Birgit Wroblewski',rolle:'PDL',tel:'030 / 454 78 30',note:''},
-      {id:'a6',name:'Steglitz (BBZ)',addr:'Filandastraße 5-6, 12169 Berlin',pdl:'BBZ Berliner Betreuungszentrum gGmbH',rolle:'Verbundunternehmen',tel:'—',note:'www.berliner-betreuungszentrum.de'}
-    ]},
-    {id:'as',name:'Süddeutschland',kinder:[
-      {id:'a7',name:'Erding',addr:'Dorfener Straße 7a, 85435 Erding',pdl:'Alexandra Sellmeier',rolle:'PDL',tel:'08122 / 94 30-40',note:''},
-      {id:'a8',name:'München',addr:'Franz-Joseph-Straße 27, 80801 München',pdl:'Milijana Dejanovic',rolle:'PDL',tel:'089 / 383 77 46-0',note:'Beratungsbüro Ismaning: Schloßstr. 12'}
-    ]},
-    {id:'an',name:'NRW',kinder:[
-      {id:'a9',name:'Köln Nord',addr:'Rochusstraße 214, 50827 Köln',pdl:'Elefteria Gogos',rolle:'PDL',tel:'0221 / 28 58 18-16',note:''},
-      {id:'a10',name:'Pulheim',addr:'Sinnersdorfer Str. 55–57, 50259 Pulheim',pdl:'Bettina Kabitzki',rolle:'PDL',tel:'02238 / 575 97',note:''}
-    ]},
-    {id:'al',name:'Sachsen-Anhalt',kinder:[
-      {id:'a11',name:'Magdeburg',addr:'Liebigstraße 7, 39104 Magdeburg',pdl:'Diana Koch',rolle:'PDL',tel:'0391 / 59 77 61 55',note:''},
-      {id:'a12',name:'Stendal',addr:'Preußenstraße 56, 39576 Stendal',pdl:'Susanne Sommer',rolle:'PDL',tel:'03931 / 41 02 660',note:''}
-    ]}
+    {id:'ab',name:'Berlin',kinder:[{id:'a1',name:'Friedrichshain',addr:'Matthiasstraße 7, 10249 Berlin',pdl:'Andrea Poet',rolle:'PDL',tel:'030 / 42 10 89 60',note:''},{id:'a2',name:'Neukölln',addr:'Moosrosenstraße 25, 12347 Berlin',pdl:'Negosava Markovic',rolle:'PDL',tel:'030 / 606 20 54',note:''},{id:'a3',name:'Reinickendorf',addr:'Senftenberger Ring 5a, 13439 Berlin',pdl:'Peggi-Alexandra Bressem',rolle:'PDL',tel:'030 / 407 79 70',note:''},{id:'a4',name:'Tempelhof',addr:'Manfred-von-Richthofen-Str. 10, 12101 Berlin',pdl:'Benjamin Paulsen',rolle:'PDL',tel:'030 / 785 70 01',note:''},{id:'a5',name:'Wedding',addr:'Osloer Straße 106/107, 13359 Berlin',pdl:'Birgit Wroblewski',rolle:'PDL',tel:'030 / 454 78 30',note:''},{id:'a6',name:'Steglitz (BBZ)',addr:'Filandastraße 5-6, 12169 Berlin',pdl:'BBZ Berliner Betreuungszentrum gGmbH',rolle:'Verbund',tel:'—',note:'www.berliner-betreuungszentrum.de'}]},
+    {id:'as',name:'Süddeutschland',kinder:[{id:'a7',name:'Erding',addr:'Dorfener Straße 7a, 85435 Erding',pdl:'Alexandra Sellmeier',rolle:'PDL',tel:'08122 / 94 30-40',note:''},{id:'a8',name:'München',addr:'Franz-Joseph-Straße 27, 80801 München',pdl:'Milijana Dejanovic',rolle:'PDL',tel:'089 / 383 77 46-0',note:'Beratungsbüro Ismaning: Schloßstr. 12'}]},
+    {id:'an',name:'NRW',kinder:[{id:'a9',name:'Köln Nord',addr:'Rochusstraße 214, 50827 Köln',pdl:'Elefteria Gogos',rolle:'PDL',tel:'0221 / 28 58 18-16',note:''},{id:'a10',name:'Pulheim',addr:'Sinnersdorfer Str. 55–57, 50259 Pulheim',pdl:'Bettina Kabitzki',rolle:'PDL',tel:'02238 / 575 97',note:''}]},
+    {id:'al',name:'Sachsen-Anhalt',kinder:[{id:'a11',name:'Magdeburg',addr:'Liebigstraße 7, 39104 Magdeburg',pdl:'Diana Koch',rolle:'PDL',tel:'0391 / 59 77 61 55',note:''},{id:'a12',name:'Stendal',addr:'Preußenstraße 56, 39576 Stendal',pdl:'Susanne Sommer',rolle:'PDL',tel:'03931 / 41 02 660',note:''}]}
   ]},
   {id:'betreut',name:'BETREUTES\nWOHNEN',icon:'🏡',color:'#1a7b5e',light:'#cceedd',angle:-36,r:195,
    leitung:[{name:P,rolle:PR_,tel:PT}],
    gruppen:[
-    {id:'bw',name:'Berlin West/Mitte',kinder:[
-      {id:'b6',name:'Kurfürstendamm',addr:'Kurfürstendamm 126/127, 10711 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
-      {id:'b8',name:'Michaelkirchstraße',addr:'Michaelkirchstraße 18-19, 10179 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
-      {id:'b13',name:'Turmstraße',addr:'Turmstraße 21, 10559 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
-      {id:'b11',name:'Schloßstraße',addr:'Schloßstraße 2, 14059 Berlin',pdl:P,rolle:PR_,tel:PT,note:''}
-    ]},
-    {id:'bn',name:'Berlin Nord',kinder:[
-      {id:'b2',name:'Falkentaler Steig',addr:'Falkentaler Steig 47/49, 13467 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
-      {id:'b4',name:'Jean-Jaurès-Str.',addr:'Jean-Jaurès-Str. 7/7a, 13469 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
-      {id:'b12',name:'Spießweg',addr:'Spießweg 38, 13437 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
-      {id:'b15',name:'Zobeltitzstraße',addr:'Zobeltitzstraße 117, 13403 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
-      {id:'b3',name:'Freudstraße',addr:'Freudstraße 13, 13589 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
-      {id:'b10',name:'Niederneuendorfer Allee',addr:'Niederneuendorfer Allee 13, 13587 Berlin',pdl:P,rolle:PR_,tel:PT,note:''}
-    ]},
-    {id:'bs',name:'Berlin Süd/Ost',kinder:[
-      {id:'b1',name:'Blumberger Damm',addr:'Blumberger Damm 231, 12687 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
-      {id:'b5',name:'Ketschendorfer Weg',addr:'Ketschendorfer Weg 33, 12683 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
-      {id:'b7',name:'Lichtenrader Damm',addr:'Lichtenrader Damm 51-57, 12305 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
-      {id:'b9',name:'Moosrosenstraße',addr:'Moosrosenstraße 25, 12347 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},
-      {id:'b14',name:'Walter-May-Weg',addr:'Walter-May-Weg 12, 12353 Berlin',pdl:P,rolle:PR_,tel:PT,note:''}
-    ]},
-    {id:'bl',name:'Sachsen-Anhalt',kinder:[
-      {id:'b16',name:'Biederitz (BW)',addr:'Vechelder Weg 10, 39175 Biederitz',pdl:P,rolle:PR_,tel:PT,note:'Wohnpark an der Ehle'},
-      {id:'b17',name:'Magdeburg (BW)',addr:'Einsteinstraße 13a/b, 39104 Magdeburg',pdl:P,rolle:PR_,tel:PT,note:'Senioren-WG Altstadt'}
-    ]}
+    {id:'bw',name:'Berlin West/Mitte',kinder:[{id:'b6',name:'Kurfürstendamm',addr:'Kurfürstendamm 126/127, 10711 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},{id:'b8',name:'Michaelkirchstraße',addr:'Michaelkirchstraße 18-19, 10179 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},{id:'b13',name:'Turmstraße',addr:'Turmstraße 21, 10559 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},{id:'b11',name:'Schloßstraße',addr:'Schloßstraße 2, 14059 Berlin',pdl:P,rolle:PR_,tel:PT,note:''}]},
+    {id:'bn',name:'Berlin Nord',kinder:[{id:'b2',name:'Falkentaler Steig',addr:'Falkentaler Steig 47/49, 13467 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},{id:'b4',name:'Jean-Jaurès-Str.',addr:'Jean-Jaurès-Str. 7/7a, 13469 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},{id:'b12',name:'Spießweg',addr:'Spießweg 38, 13437 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},{id:'b15',name:'Zobeltitzstraße',addr:'Zobeltitzstraße 117, 13403 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},{id:'b3',name:'Freudstraße',addr:'Freudstraße 13, 13589 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},{id:'b10',name:'Niederneuendorfer Allee',addr:'Niederneuendorfer Allee 13, 13587 Berlin',pdl:P,rolle:PR_,tel:PT,note:''}]},
+    {id:'bs',name:'Berlin Süd/Ost',kinder:[{id:'b1',name:'Blumberger Damm',addr:'Blumberger Damm 231, 12687 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},{id:'b5',name:'Ketschendorfer Weg',addr:'Ketschendorfer Weg 33, 12683 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},{id:'b7',name:'Lichtenrader Damm',addr:'Lichtenrader Damm 51-57, 12305 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},{id:'b9',name:'Moosrosenstraße',addr:'Moosrosenstraße 25, 12347 Berlin',pdl:P,rolle:PR_,tel:PT,note:''},{id:'b14',name:'Walter-May-Weg',addr:'Walter-May-Weg 12, 12353 Berlin',pdl:P,rolle:PR_,tel:PT,note:''}]},
+    {id:'bl',name:'Sachsen-Anhalt',kinder:[{id:'b16',name:'Biederitz (BW)',addr:'Vechelder Weg 10, 39175 Biederitz',pdl:P,rolle:PR_,tel:PT,note:'Wohnpark an der Ehle'},{id:'b17',name:'Magdeburg (BW)',addr:'Einsteinstraße 13a/b, 39104 Magdeburg',pdl:P,rolle:PR_,tel:PT,note:'Senioren-WG Altstadt'}]}
   ]},
   {id:'tagespflege',name:'TAGES-\nPFLEGE',icon:'☀️',color:'#b5600d',light:'#fde8cc',angle:36,r:195,leitung:[],
    gruppen:[
-    {id:'th',name:'Hamburg',kinder:[
-      {id:'t1',name:'Langenhorner Ch.',addr:'Langenhorner Chaussee 666, 22419 Hamburg',pdl:'Alexandra Schröder',rolle:'PDL',tel:'040 / 53 71 74 17',note:''},
-      {id:'t2',name:'Wandsbek',addr:'Ahrensburger Straße 95, 22041 Hamburg',pdl:'Katharina Yavorskyy',rolle:'PDL',tel:'040 / 30 98 18 80',note:''}
-    ]},
-    {id:'tbl',name:'GfA Berlin',kinder:[
-      {id:'t3',name:'Berlin-Lichtenberg',addr:'Berlin-Lichtenberg',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'Wisbyer Str. 16/17, 10439 Berlin · www.gfa-berlin.de'},
-      {id:'t4',name:'Berlin-Hohenschönh.',addr:'Berlin-Hohenschönhausen',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'}
-    ]},
-    {id:'tbb',name:'GfA Brandenburg',kinder:[
-      {id:'t5',name:'Elstal',addr:'Elstal, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
-      {id:'t6',name:'Falkensee',addr:'Falkensee, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
-      {id:'t7',name:'Friesack',addr:'Friesack, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
-      {id:'t8',name:'Ketzin',addr:'Ketzin, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
-      {id:'t9',name:'Lietzow',addr:'Lietzow, LK Rügen',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
-      {id:'t10',name:'Nauen',addr:'Nauen, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
-      {id:'t11',name:'Potsdam',addr:'Potsdam',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
-      {id:'t12',name:'Rathenow',addr:'Rathenow, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
-      {id:'t13',name:'Schorfheide',addr:'Schorfheide, LK Barnim',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},
-      {id:'t14',name:'Wustermark',addr:'Wustermark, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'}
-    ]},
-    {id:'tsa',name:'Sachsen-Anhalt',kinder:[
-      {id:'t15',name:'Biederitz (TP)',addr:'Vechelder Weg 10, 39175 Biederitz',pdl:'Tagespflege im Wohnpark',rolle:'',tel:'039292 / 67 52 13',note:''}
-    ]}
+    {id:'th',name:'Hamburg',kinder:[{id:'t1',name:'Langenhorner Ch.',addr:'Langenhorner Chaussee 666, 22419 Hamburg',pdl:'Alexandra Schröder',rolle:'PDL',tel:'040 / 53 71 74 17',note:''},{id:'t2',name:'Wandsbek',addr:'Ahrensburger Straße 95, 22041 Hamburg',pdl:'Katharina Yavorskyy',rolle:'PDL',tel:'040 / 30 98 18 80',note:''}]},
+    {id:'tbl',name:'GfA Berlin',kinder:[{id:'t3',name:'Berlin-Lichtenberg',addr:'Berlin-Lichtenberg',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},{id:'t4',name:'Berlin-Hohenschönh.',addr:'Berlin-Hohenschönhausen',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'}]},
+    {id:'tbb',name:'GfA Brandenburg',kinder:[{id:'t5',name:'Elstal',addr:'Elstal, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},{id:'t6',name:'Falkensee',addr:'Falkensee, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},{id:'t7',name:'Friesack',addr:'Friesack, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},{id:'t8',name:'Ketzin',addr:'Ketzin, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},{id:'t9',name:'Lietzow',addr:'Lietzow, LK Rügen',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},{id:'t10',name:'Nauen',addr:'Nauen, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},{id:'t11',name:'Potsdam',addr:'Potsdam',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},{id:'t12',name:'Rathenow',addr:'Rathenow, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},{id:'t13',name:'Schorfheide',addr:'Schorfheide, LK Barnim',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'},{id:'t14',name:'Wustermark',addr:'Wustermark, LK Havelland',pdl:'GfA Tagesstätten GmbH',rolle:'Verbund',tel:'030 / 396 005 10',note:'www.gfa-berlin.de'}]},
+    {id:'tsa',name:'Sachsen-Anhalt',kinder:[{id:'t15',name:'Biederitz (TP)',addr:'Vechelder Weg 10, 39175 Biederitz',pdl:'Tagespflege Wohnpark',rolle:'',tel:'039292 / 67 52 13',note:''}]}
   ]},
   {id:'therapie',name:'THERAPIE &\nGESUNDHEIT',icon:'⚕️',color:'#7b2d8b',light:'#eeddf5',angle:108,r:185,leitung:[],
    gruppen:[
     {id:'gm',name:'MVZ Mediplus',kinder:[{id:'g1',name:'Berlin',addr:'Berlin',pdl:'Allgemein- & Augenheilkunde',rolle:'Medizinisches Versorgungszentrum',tel:'030 / 39 60 05 10',note:''}]},
-    {id:'gl',name:'Therapielotsen',kinder:[
-      {id:'g2',name:'Berlin',addr:'Berlin',pdl:'Mediplus TUR GmbH',rolle:'Ergo-, Logo-, Physiotherapie',tel:'—',note:''},
-      {id:'g3',name:'Dortmund',addr:'Dortmund',pdl:'Mediplus TUR GmbH',rolle:'Ergo-, Logo-, Physiotherapie',tel:'—',note:''},
-      {id:'g4',name:'Leipzig',addr:'Leipzig',pdl:'Mediplus TUR GmbH',rolle:'Ergo-, Logo-, Physiotherapie',tel:'—',note:''}
-    ]}
+    {id:'gl',name:'Therapielotsen',kinder:[{id:'g2',name:'Berlin',addr:'Berlin',pdl:'Mediplus TUR GmbH',rolle:'Ergo-, Logo-, Physio',tel:'—',note:''},{id:'g3',name:'Dortmund',addr:'Dortmund',pdl:'Mediplus TUR GmbH',rolle:'Ergo-, Logo-, Physio',tel:'—',note:''},{id:'g4',name:'Leipzig',addr:'Leipzig',pdl:'Mediplus TUR GmbH',rolle:'Ergo-, Logo-, Physio',tel:'—',note:''}]}
   ]},
   {id:'kurse',name:'PFLEGE-\nKURSE',icon:'📚',color:'#8b6914',light:'#f5eacc',angle:180,r:178,leitung:[],
-   gruppen:[{id:'ka',name:'Kursangebote',kinder:[
-    {id:'k1',name:'Gruppenkurse §45',addr:'Köln & weitere',pdl:'Frank Lehmköster',rolle:'GL Köln',tel:'0221 / 28 58 18-0',note:'Kurse für pflegende Angehörige nach §45 SGB XI'},
-    {id:'k2',name:'Individuelle Schulungen',addr:'Alle Standorte',pdl:'Zentrale',rolle:'',tel:'030 / 39 60 05 10',note:''}
-   ]}]}
+   gruppen:[{id:'ka',name:'Kursangebote',kinder:[{id:'k1',name:'Gruppenkurse §45',addr:'Köln & weitere',pdl:'Frank Lehmköster',rolle:'GL Köln',tel:'0221 / 28 58 18-0',note:'Kurse nach §45 SGB XI'},{id:'k2',name:'Individuelle Schulungen',addr:'Alle Standorte',pdl:'Zentrale',rolle:'',tel:'030 / 39 60 05 10',note:''}]}]}
 ];
 const svg=document.getElementById('map'),NS='http://www.w3.org/2000/svg',CX=530,CY=430;
 function el(t,a={},tx=''){const e=document.createElementNS(NS,t);for(const[k,v]of Object.entries(a))e.setAttribute(k,v);if(tx)e.textContent=tx;return e;}
